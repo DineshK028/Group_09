@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Infy Food Express</title>
+    <style>
+        body {
+            background-color:  rgb(230, 213, 191);
+            font-family: Arial;
+            margin: 0;
+        }
+        .header {
+            padding: 15px; text-align: center; color: white; background-color: #0b7d3b;width: 100%; box-sizing: border-box;}
+        .header h1 {margin: 0; font-size: 1.5em;}
+        .container {display: flex;flex-direction: column;align-items: center;padding: 60px 20px;min-height: 60vh;    }
+
+        .role-btn {
+            display: block;width: 200px; text-align: center; text-decoration: none;background-color: #3fae66; color: black;
+            font-weight: bold;padding: 12px 0;margin-bottom: 18px;border-radius: 5px;  border: 1px solid #1e7e45;
+
+        }
+        .role-btn:hover {
+            background-color: #2e8b57;
+        }
+
+        .footer{
+            background-color: #0b7d3b;
+            color:white;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width:100%;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="header">
+
+        <h1>Welcome to Infy Food Express</h1>
+
+    </div>
+
+    <div class="container">
+
+        <a href="{{ url_for('admin_login') }}" class="role-btn">Admin</a>
+
+        <a href="{{ url_for('owner_login') }}" class="role-btn">Owner</a>
+
+        <a href="{{ url_for('customer_login') }}" class="role-btn">Customer</a>
+
+        <a href="{{ url_for('delivery_login') }}" class="role-btn">Delivery</a>
+       
+
+    </div>
+
+    <div class="footer">
+
+        Copyright &copy; 2026 Infy Food Express
+
+    </div>
+
+</body>
+
+</html>
