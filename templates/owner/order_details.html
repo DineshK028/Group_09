@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<title>Order Details</title>
+
+
+<style>
+    body{
+
+margin:0;
+
+font-family:Arial;
+
+background:#f2f2f2;
+
+}
+
+.header{
+
+background:#198754;
+
+color:white;
+
+padding:15px;
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+}
+
+.nav a{
+
+color:white;
+
+text-decoration:none;
+
+margin-left:20px;
+
+}
+.container{
+width:70%;
+
+margin:40px auto;
+
+background:white;
+
+padding:30px;
+
+border-radius:5px;
+
+}
+
+.filter{
+
+margin-bottom:20px;
+
+}
+
+table{
+
+width:100%;
+
+border-collapse:collapse;
+
+}
+
+table th{
+
+background:#eeeeee;
+
+padding:10px;
+
+}
+
+table td{
+
+padding:10px;
+
+text-align:center;
+
+border-bottom:1px solid #ddd;
+
+}
+
+button{
+
+padding:8px 15px;
+
+border:none;
+
+border-radius:4px;
+
+cursor:pointer;
+
+margin:2px;
+
+color:white;
+
+}
+
+.blue{
+
+background:#0d6efd;
+
+}
+
+.red{
+
+background:#dc3545;
+
+}
+
+.green{
+
+background:#198754;
+
+}
+
+.gray{
+
+background:#6c757d;
+
+}
+
+.pending{
+
+background:orange;
+
+color:white;
+
+padding:5px 10px;
+
+border-radius:15px;
+
+}
+
+.accepted{
+
+background:blue;
+
+color:white;
+
+padding:5px 10px;
+
+border-radius:15px;
+
+}
+
+.delivery{
+
+background:green;
+
+color:white;
+
+padding:5px 10px;
+
+border-radius:15px;
+
+}
+
+.cancelled{
+
+background:red;
+
+color:white;
+
+padding:5px 10px;
+
+border-radius:15px;
+
+}
+
+.details{
+
+width:50%;
+
+margin:auto;
+
+}
+.item-table{
+    
+    width:70%;
+    
+    margin:auto;
+    
+    border-collapse:collapse;
+    
+    }
+
+.summary{
+    
+    width:220px;
+    
+    margin-left:auto;
+    
+    margin-top:15px;
+    
+    font-weight:bold;
+    
+    line-height:35px;
+    
+    }
+    .customer-table{
+    
+    width:70%;
+    
+    margin:auto;
+    
+    border-collapse:collapse;
+    
+    }
+    
+    .customer-table td{
+    
+    padding:10px;
+    
+    border:1px solid #ddd;
+    
+    }
+    
+ 
+    
+    .item-table th{
+    
+    background:#f2f2f2;
+    
+    padding:10px;
+    
+    }
+    
+    .item-table td{
+    
+    padding:10px;
+    
+    border:1px solid #ddd;
+    
+    text-align:center;
+    
+    }
+    .footer{
+            background-color: #0b7d3b;
+            color:white;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width:100%;
+        }
+</style>
+
+</head>
+
+<body>
+
+<div class="header">
+
+<h2>Infy Food Express</h2>
+
+<div class="nav">
+<span>Hi {{ session['username'] }}</span>
+
+<a href="{{ url_for('owner_dashboard',user_id=session['user_id']) }}">
+
+    Home
+
+</a>
+
+<a href="{{ url_for('owner_logout') }}">Logout</a>
+
+</div>
+
+</div>
+
+<div class="container">
+
+    <h2 style="text-align:center;">
+
+        Order {{order[0]}}
+
+    </h2>
+
+    <h3 style="text-align:center;">
+
+        Customer Details
+
+    </h3>
+
+    <table class="customer-table">
+
+        <tr>
+
+            <td><b>User ID</b></td>
+
+            <td>{{order[1]}}</td>
+
+        </tr>
+
+        <tr>
+
+            <td><b>Name</b></td>
+
+            <td>{{order[2]}}</td>
+
+        </tr>
+
+        <tr>
+
+            <td><b>Phone</b></td>
+
+            <td>{{order[3]}}</td>
+
+        </tr>
+
+        <tr>
+
+            <td><b>Order Status</b></td>
+
+            <td>{{order[5]}}</td>
+
+        </tr>
+
+        <tr>
+
+            <td><b>Address</b></td>
+
+            <td>{{order[4]}}</td>
+
+        </tr>
+
+    </table>
+
+    <br>
+
+    <table class="item-table">
+
+        <tr>
+
+            <th>Item</th>
+
+            <th>Quantity</th>
+
+            <th>Unit Price (₹)</th>
+
+            <th>Total (₹)</th>
+
+        </tr>
+
+        {% for item in items %}
+
+        <tr>
+
+            <td>{{item[0]}}</td>
+
+            <td>{{item[1]}}</td>
+
+            <td>{{item[2]}}</td>
+
+            <td>{{ item[3] }}</td>
+
+        </tr>
+
+        {% endfor %}
+
+    </table>
+
+    <div class="summary">
+
+        <p><b>Order Total</b> ₹{{ order[6] }}</p>
+
+        <p><b>Delivery Fee</b> ₹{{ delivery_fee }} </p>
+
+        <p><b>Final Amount</b> ₹{{ final_amount }}</p>
+
+    </div>
+
+</div>
+<div class="footer">
+
+    Copyright © 2026 Infy Food Express
+
+</div>
+
+</body>
+
+</html>
+
+
