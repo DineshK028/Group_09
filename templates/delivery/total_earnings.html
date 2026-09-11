@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+    <title>Total Earnings</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='delivery/total_earnings.css') }}">
+
+
+</head>
+
+<body>
+
+<div class="header">
+
+    <div class="logo">
+
+        Infy Food Express
+
+    </div>
+
+    <div class="header-right">
+
+        <span>Hi {{session['name']}}</span>
+
+        <a href=" {{ url_for('delivery_dashboard') }}">Home</a>
+
+        <a href="/delivery/logout">Logout</a>
+
+    </div>
+
+</div>
+
+<div class="nav">
+
+    <a href="/delivery/assigned_deliveries">Assigned Deliveries</a>
+
+    <a href="/delivery/order_updates">Order Updates</a>
+
+    <a href="/delivery/total_earnings" class="active">Total Earnings</a>
+
+</div>
+
+<h2>Total Earnings</h2>
+
+<p class="subtitle">
+
+
+</p>
+
+<div class="cards">
+
+    <div class="card">
+
+        <h3>Today</h3>
+
+        <p>Delivered: {{today[0]}}</p>
+
+        <div class="amount">
+
+            ₹{{"%.2f"|format(today[1])}}
+
+        </div>
+
+    </div>
+
+    <div class="card">
+
+        <h3>Last 7 Days</h3>
+
+        <p>Delivered: {{last7[0]}}</p>
+
+        <div class="amount">
+
+            ₹{{"%.2f"|format(last7[1])}}
+
+        </div>
+
+    </div>
+
+    <div class="card">
+
+        <h3>All Time</h3>
+
+        <p>Delivered: {{alltime[0]}}</p>
+
+        <div class="amount">
+
+            ₹{{"%.2f"|format(alltime[1])}}
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="footer">
+
+    Copyright © 2026 Infy Food Express
+
+</div>
+
+</body>
+
+</html>
