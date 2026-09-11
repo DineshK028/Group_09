@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='delivery/dashboard.css') }}">
+
+    <title>Delivery Dashboard</title>
+
+
+</head>
+
+<body>
+
+<header>
+    <div class="logo">
+
+        Infy Food Express
+
+    </div>
+
+    <div class="top-right">
+
+        <span>Hi {{ session["name"] }}</span>
+
+        <a href="/delivery/logout">Logout</a>
+
+    </div>
+
+</header>
+
+<div class="container">
+
+    <h2>Delivery Dashboard</h2>
+
+    <div class="menu">
+
+        <a href="/delivery/assigned_deliveries">
+
+            📦 Assigned Deliveries
+
+        </a>
+
+        <a href="/delivery/order_updates">
+
+            🚚 My Active Orders
+
+        </a>
+
+        <a href="/delivery/total_earnings">
+
+            💰 My Earnings
+
+        </a>
+
+    </div>
+
+</div>
+
+<footer>
+
+    Copyright © 2026 Infy Food Express
+
+</footer>
+
+</body>
+
+</html>
