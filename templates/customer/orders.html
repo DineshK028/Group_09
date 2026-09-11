@@ -1,0 +1,91 @@
+{% extends "customer/base_customer.html" %}
+
+
+ 
+
+{% block title %}
+
+My Orders
+
+{% endblock %}
+
+
+ 
+
+{% block content %}
+
+
+ 
+
+<div class="orders-container">
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+
+            {% if messages %}
+
+                {% for category, message in messages %}
+
+                    <div class="{{ category }}">
+
+                        {{ message }}
+
+                    </div>
+
+                {% endfor %}
+
+            {% endif %}
+
+        {% endwith %}
+
+    <h1>My Orders</h1>
+
+    <table class="orders-table">
+
+        <thead>
+
+            <tr>
+
+                <th>#Order_Id</th>
+
+                <th>Restaurant</th>
+
+                <th>Status</th>
+
+                <th>Final Amount</th>
+
+                <th>ETA</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+        {% for order in orders %}
+
+            <tr>
+
+                <td>{{ order.order_id }}</td>
+
+                <td>{{ order.restaurant_name }}</td>
+
+                <td>{{ order.status }}</td>
+
+                <td>₹{{ order.final_amount }}</td>
+
+                <td>{{ order.eta }}</td>
+
+            </tr>
+
+        {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+
+ 
+
+{% endblock %}
