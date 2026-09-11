@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+
+ 
+
+    <meta name="viewport"
+
+          content="width=device-width, initial-scale=1.0">
+
+
+ 
+
+    <title>
+
+
+ 
+
+        {% block title %}
+
+
+ 
+
+        {% endblock %}
+
+
+ 
+
+    </title>
+
+
+ 
+
+    <link rel="stylesheet" href="{{ url_for('static',filename='customer/style.css') }}">
+
+
+ 
+
+</head>
+
+
+ 
+
+<body>
+
+
+ 
+
+<header class="guest-header">
+
+
+ 
+
+    <h1>
+
+
+ 
+
+        Welcome to Infy Food Express
+
+
+ 
+
+    </h1>
+
+
+ 
+
+    <div>
+
+
+ 
+
+        {% block nav %}
+
+
+ 
+
+        {% endblock %}
+
+
+ 
+
+    </div>
+
+
+ 
+
+</header>
+
+
+ 
+
+<div class="page">
+
+
+ 
+
+    {% block content %}
+
+
+ 
+
+    {% endblock %}
+
+
+ 
+
+</div>
+
+
+ 
+
+<footer>
+
+
+ 
+
+    Copyright © 2026 Infy Food Express
+
+
+ 
+
+</footer>
+
+
+ 
+
+</body>
+
+
+ 
+
+</html>
