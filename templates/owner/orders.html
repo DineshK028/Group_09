@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+    <title>Orders</title>
+
+    
+    <style>
+        body{
+
+margin:0;
+
+font-family:Arial;
+
+background:#f2f2f2;
+
+}
+
+.header{
+
+background:#198754;
+
+color:white;
+
+padding:15px 30px;
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+}
+
+.nav a{
+
+color:white;
+
+text-decoration:none;
+
+margin-left:20px;
+
+}
+
+.container{
+
+width:90%;
+
+margin:30px auto;
+
+background:white;
+
+padding:20px;
+
+border-radius:8px;
+
+}
+
+.filter{
+
+margin-bottom:20px;
+margin-left: 550px;
+
+
+}
+
+table{
+
+width:100%;
+
+border-collapse:collapse;
+
+}
+
+table th{
+
+background:#eeeeee;
+
+padding:10px;
+
+}
+
+table td{
+
+padding:10px;
+
+text-align:center;
+
+border-bottom:1px solid #ddd;
+
+}
+
+button{
+
+padding:8px 15px;
+
+border:none;
+
+border-radius:4px;
+
+cursor:pointer;
+
+margin:2px;
+
+color:white;
+
+}
+
+.blue{
+
+background:#0d6efd;
+
+}
+
+.red{
+
+background:#dc3545;
+
+}
+
+.green{
+
+background:#198754;
+
+}
+
+.gray{
+
+background:#6c757d;
+
+}
+
+.pending{
+
+background:orange;
+
+color:white;
+
+padding:5px 10px;
+
+border-radius:15px;
+
+}
+
+.accepted{
+
+background:blue;
+
+color:white;
+
+padding:5px 10px;
+
+border-radius:15px;
+
+}
+
+.delivery{
+
+background:green;
+
+color:white;
+
+padding:5px 10px;
+
+border-radius:15px;
+
+}
+
+.cancelled{
+
+background:red;
+
+color:white;
+
+padding:5px 10px;
+
+border-radius:15px;
+
+}
+
+.details{
+
+width:50%;
+
+margin:auto;
+
+}
+
+.summary{
+
+width:250px;
+
+float:right;
+
+margin-top:20px;
+
+border:1px solid #ccc;
+
+padding:15px;
+
+}
+.form {
+    text-align: center;
+}
+.footer{
+            background-color: #0b7d3b;
+            color:white;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width:100%;
+        }
+    </style>
+
+</head>
+
+<body>
+
+<div class="header">
+
+    <div class="logo">
+
+        <h2>Infy Food Express</h2>
+
+    </div>
+
+    <div class="nav">
+
+        <span>Hi {{ session['username'] }}</span>
+
+        <a href="{{ url_for('owner_dashboard',user_id=session['user_id']) }}">
+
+            Home
+
+        </a>
+
+        <a href="{{ url_for('owner_logout')}}">Logout</a>
+
+    </div>
+
+</div>
+
+<div class="container">
+
+    <h2 style="text-align:center; color:rgb(3, 79, 3)">Orders -- {{ name[0] }} </h2>
+
+    <form action="" method="GET" class="filter">
+
+        <label>Filter by Status</label>
+
+        <select name="status">
+
+            <option value="all">All</option>
+
+            <option value="pending">Pending</option>
+
+            <option value="accepted">Accepted</option>
+
+            <option value="out_for_delivery">Out For Delivery</option>
+
+            <option value="delivered">Cancelled</option>
+
+        </select>
+
+        <input type="submit" value="Apply">
+
+    </form>
+
+    <table>
+
+        <tr>
+
+            <th>#Order ID</th>
+
+            <th>Customer</th>
+
+            <th>Status</th>
+
+            <th>Final</th>
+
+            <th>ETA</th>
+
+            <th>Delivered Time</th>
+
+            <th>Actions</th>
+
+        </tr>
+
+        {% for order in orders %}
+
+        <tr>
+
+            <td>{{ order[1] }}</td>
+
+            <td>{{ order[2] }}</td>
+
+            <td>
+
+                {% if order[3]=='pending' %}
+
+                <span class="pending">Pending</span>
+
+                {% elif order[3]=='accepted' %}
+
+                <span class="accepted">Accepted</span>
+
+                {% elif order[3]=='out_for_delivery' %}
+
+                <span class="delivery">Out For Delivery</span>
+
+               
+
+                {% endif %}
+
+            </td>
+
+            <td>₹{{ order[4] }}</td>
+
+            <td>{{ order[5] }}</td>
+
+            <td>{{ order[6] }}</td>
+
+            <td>
+
+                {% if order[3]=='pending' %}
+
+                <a href="/owner/accept_order/{{ order[0] }}">
+
+                    <button class="blue" type="button">Take Order</button>
+
+                </a>
+
+                <a href="/owner/cancel_order/{{ order[0] }}">
+
+                    <button class="red" type="button">Cancel</button>
+
+                </a>
+
+                {% elif order[3]=='accepted' %}
+
+                <a href="/owner/dispatch_order/{{ order[0] }}">
+
+                    <button class="green" type="button">
+
+                        Out For Delivery
+
+                    </button>
+
+                </a>
+
+                {% endif %}
+
+                <a href="/owner/order/{{order[0]}}">
+
+                    <button class="gray" type="button">Details</button>
+
+                </a>
+
+            </td>
+
+        </tr>
+
+        {% endfor %}
+
+    </table>
+
+</div>
+
+<div class="footer">
+    Copyright © 2026 Infy Food Express
+</div>
+
+</body>
+
+</html>
