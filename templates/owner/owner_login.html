@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Login</title>
+    <style>
+        body{
+            background-color: burlywood;
+            font-family: Arial;
+            margin:0;
+            overflow: hidden;
+        }
+        .header{
+            padding:10px;
+            text-align: center;
+            color:white;
+            background-color: #0b7d3b;
+            width:100%;
+            position: relative;
+        }
+        .index{
+            position: absolute;
+            right:30px;
+            top:15px;
+            text-decoration: none;
+            background: white;
+            color:black;
+            padding: 5px 12px;
+            border-radius: 5px;
+        }
+        .container{
+            width: 350px;
+            margin: 80px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 5px;
+            box-shadow: 0 0  10px gray;
+        }
+        h2{
+            text-align: center;
+        }
+        label{
+            font-weight: bold;
+        }
+        input{
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            margin-bottom: 15px;
+        }
+        .login{
+            background:green;
+            color:white;
+            border:none;
+        }
+        .footer{
+            background-color: #0b7d3b;
+            color:white;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width:100%;
+        }
+        .button-group{
+            justify-content: center;
+            display: flex;
+            gap:15px;
+            margin-top: 20px;
+            border: none;
+        }
+        
+        .button-group button{
+            width:80px;
+            height: 35px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 15px;
+        }
+        .reset{
+            background: white;
+            color: black;
+            border: 1px solid gray !important;
+        }
+        .pass {
+            align-items: center;
+            text-align: center;
+            cursor:pointer;
+            margin-top: 5px;
+
+        }
+        a {
+            text-decoration: none;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="header">
+    <h1>Welcome to Infy Food Express</h1>
+    <a href="{{ url_for('index') }}" class="index">Index</a>
+    </div>
+    <div class="container">
+        <h2>Owner Login</h2>
+        {% with messages=get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <p style="color:red; text-align: center;">{{ message }}</p>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        <form action="/owner/auth" method="POST">
+            <label>Email</label>
+            <br>
+            <input type="email" name="email">
+            <br>
+            <label>Password</label>
+            <br>
+            <input type="password" name="password">
+            <br>
+            <div class="button-group">
+                <button class="login" type="submit">Login</button>
+                <button class="reset" type="reset">Reset</button>
+        </div>
+        
+        </form>
+         <div class="pass">
+        <a  href="{{ url_for( 'owner_reset_pass' ) }}">Forgot Password</a>
+    </div>
+
+        
+    </div>
+    <div class="footer">
+        Copyright © 2026 Infy Food Express
+    </div>
+</body>
+</html>
