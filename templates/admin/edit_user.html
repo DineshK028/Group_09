@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <title>Edit User</title>
+   <style>
+       body {
+           background-color: burlywood;
+           font-family: Arial;
+           margin: 0;
+       }
+       .header {
+           display: flex;
+           justify-content: space-between;
+           align-items: center;
+           padding: 12px 25px;
+           color: white;
+           background-color: #0b7d3b;
+           box-sizing: border-box;
+       }
+       .header .brand { font-weight: bold; font-size: 1.2em; }
+       .header .right { display: flex; align-items: center; gap: 10px; }
+       .pill {
+           border: none;
+           border-radius: 20px;
+           padding: 6px 16px;
+           font-size: 0.85em;
+           font-weight: bold;
+           text-decoration: none;
+           cursor: pointer;
+       }
+       .pill-white { background: white; color: #0b7d3b; }
+       .pill-green { background: #3fae66; color: white; }
+       form.inline { margin: 0; }
+
+       .container { display: flex; justify-content: center; padding: 40px 20px; }
+       .card {
+           background: white;
+           padding: 35px 45px;
+           border-radius: 8px;
+           box-shadow: 0 0 10px gray;
+           width: 500px;
+       }
+       .card h2 {
+           text-align: center;
+           margin-top: 0;
+           margin-bottom: 10px;
+       }
+       .flash-msg {
+           color: #c0392b;
+           text-align: center;
+           font-size: 0.9em;
+           margin-bottom: 15px;
+       }
+       .row { display: flex; gap: 20px; margin-bottom: 18px; }
+       .field { flex: 1; }
+       label { font-weight: bold; font-size: 0.9em; }
+       input, select {
+           width: 100%;
+           padding: 8px;
+           margin-top: 5px;
+           box-sizing: border-box;
+           border: 1px solid #ccc;
+           border-radius: 4px;
+       }
+       input[readonly] {
+           background: #e5e5e5;
+           color: #555;
+       }
+       .delivery-section {
+           border-top: 1px solid #ddd;
+           margin-top: 10px;
+           padding-top: 10px;
+       }
+       .delivery-section h4 { margin-bottom: 10px; }
+       .btn-group { text-align: center; margin-top: 20px; }
+       .btn-group button {
+           border: none;
+           border-radius: 4px;
+           padding: 8px 22px;
+           font-weight: bold;
+           cursor: pointer;
+       }
+       .save-btn { background: #0d3b26; color: white; }
+
+       .footer {
+           background-color: #0b7d3b;
+           color: white;
+           text-align: center;
+           padding: 10px;
+           width: 100%;
+           box-sizing: border-box;
+       }
+   </style>
+</head>
+<body>
+   <div class="header">
+       <div class="brand">Infy Food Express</div>
+       <div class="right">
+           <span class="pill pill-white">Hi {{ admin_name }}</span>
+           <a href="{{ url_for('admin_dashboard') }}" class="pill pill-green">Home</a>
+           <form class="inline" action="{{ url_for('admin_logout') }}" method="POST">
+               <button type="submit" class="pill pill-green">Logout</button>
+           </form>
+       </div>
+   </div>
+
+   <div class="container">
+       <div class="card">
+           <h2>Edit User</h2>
+
+           {% with messages = get_flashed_messages() %}
+               {% if messages %}
+                   {% for message in messages %}
+                       <div class="flash-msg">{{ message }}</div>
+                   {% endfor %}
+               {% endif %}
+           {% endwith %}
+
+           <form action="{{ url_for('admin_edit_user', user_id=user[0]) }}" method="POST">
+               <div class="row">
+                   <div class="field">
+                       <label>Username</label>
+                       <input type="text" name="username" value="{{ user[1] }}" required>
+                   </div>
+                   <div class="field">
+                       <label>Email</label>
+                       <input type="email" name="email" value="{{ user[2] }}" required>
+                   </div>
+               </div>
+
+               <div class="row">
+                   <div class="field">
+                       <label>Phone</label>
+                       <input type="text" name="phone" value="{{ user[4] }}" maxlength="10" required>
+                   </div>
+                   <div class="field">
+                       <label>Type</label>
+                       <input type="text" value="{{ user[5] }}" readonly>
+                   </div>
+               </div>
+
+               <div class="row">
+                   <div class="field">
+                       <label>Address</label>
+                       <input type="text" name="address" value="{{ user[6] }}" required>
+                   </div>
+               </div>
+
+               <div class="row">
+                   <div class="field">
+                       <label>City</label>
+                       <input type="text" name="city" value="{{ user[7] }}" required>
+                   </div>
+                   <div class="field">
+                       <label>ZIP Code</label>
+                       <input type="text" name="zip_code" value="{{ user[8] or '' }}" maxlength="6">
+                   </div>
+               </div>
+
+               {% if user[5] == 'Delivery_Person' %}
+               <div class="delivery-section">
+                   <h4>Delivery Details</h4>
+                   <div class="row">
+                       <div class="field">
+                           <label>Vehicle Type</label>
+                           <input type="text" name="vehicle_type" value="{{ delivery_info[2] if delivery_info else '' }}">
+                       </div>
+                       <div class="field">
+                           <label>Vehicle Number</label>
+                           <input type="text" name="vehicle_number" value="{{ delivery_info[3] if delivery_info else '' }}">
+                       </div>
+                   </div>
+                   <div class="row">
+                       <div class="field">
+                           <label>License Number</label>
+                           <input type="text" name="license_number" value="{{ delivery_info[4] if delivery_info else '' }}">
+                       </div>
+                   </div>
+               </div>
+               {% endif %}
+
+               <div class="btn-group">
+                   <button type="submit" class="save-btn">Save Changes</button>
+               </div>
+           </form>
+       </div>
+   </div>
+
+   <div class="footer">
+       Copyright © 2026 Infy Food Express
+   </div>
+</body>
+</html>
+
+
