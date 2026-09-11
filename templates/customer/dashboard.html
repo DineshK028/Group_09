@@ -1,0 +1,88 @@
+{% extends "customer/base_dashboard.html" %}
+
+
+
+{% block title %}
+
+Customer Dashboard
+
+{% endblock %}
+
+
+ 
+
+{% block content %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='customer/style.css') }}">
+ 
+
+<div class="dashboard-container">
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+
+            {% if messages %}
+
+                {% for category, message in messages %}
+
+                    <div class="{{ category }}">
+
+                        {{ message }}
+
+                    </div>
+
+                {% endfor %}
+
+            {% endif %}
+
+        {% endwith %}
+
+
+ 
+
+    <h2>Customer Dashboard</h2>
+
+
+ 
+
+    <div class="dashboard-buttons">
+
+
+ 
+
+        <a href="{{ url_for('customer_restaurants') }}" class="dashboard-btn">
+
+            🍽&nbsp;&nbsp;Place Order
+
+        </a>
+
+
+ 
+
+        <a href="{{ url_for('customer_cart') }}" class="dashboard-btn">
+
+            🛒&nbsp;&nbsp;My Cart
+
+        </a>
+
+
+ 
+
+        <a href="{{ url_for('customer_orders') }}" class="dashboard-btn">
+
+            📋&nbsp;&nbsp;My Orders
+
+        </a>
+
+
+ 
+
+    </div>
+
+
+ 
+
+</div>
+
+ 
+
+{% endblock %}
