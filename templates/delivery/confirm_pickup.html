@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='delivery/confirm_pickup.css') }}">
+
+    <title>Confirm Pick-up</title>
+
+    
+
+</head>
+
+<body>
+
+<div class="box">
+
+    <h2>Confirm Pick-up</h2>
+
+    <table>
+
+        <tr>
+
+            <td>Order Number</td>
+
+            <td>{{ order[1] }}</td>
+
+        </tr>
+
+        <tr>
+
+            <td>Restaurant</td>
+
+            <td>{{ order[2] }}</td>
+
+        </tr>
+
+        <tr>
+
+            <td>Restaurant Address</td>
+
+            <td>{{ order[3] }}</td>
+
+        </tr>
+
+        <tr>
+
+            <td>Customer Address</td>
+
+            <td>{{ order[4] }}</td>
+
+        </tr>
+
+        <tr>
+
+            <td>Amount</td>
+
+            <td>₹{{ order[5] }}</td>
+
+        </tr>
+
+        <tr>
+
+            <td>Payment Status</td>
+
+            <td>{{ order[6] }}</td>
+
+        </tr>
+
+    </table>
+
+    <div class="buttons">
+
+        <form action="/delivery/accept_pickup/{{ order[0] }}" method="post" style="display:inline;">
+
+            <button type="submit" class="accept">
+
+                Confirm Accept
+
+            </button>
+
+        </form>
+
+        <a href="/delivery/assigned_deliveries" class="cancel">
+
+            Cancel
+
+        </a>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>
