@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+    <title>Items</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+    body{
+
+        margin:0;
+    
+        font-family:Arial,Helvetica,sans-serif;
+    
+        background:#f4f4f4;
+    
+    }
+    
+    header{
+    
+        background:#155724;
+    
+        color:white;
+    
+        padding:15px 30px;
+    
+        display:flex;
+    
+        justify-content:space-between;
+    
+        align-items:center;
+    
+    }
+    
+    header a{
+    
+        color:white;
+    
+        text-decoration:none;
+    
+        margin-left:20px;
+    
+    }
+    
+    .container{
+    
+        width:80%;
+    
+        margin:30px auto;
+    
+        background:white;
+    
+        padding:25px;
+    
+        border-radius:8px;
+    
+        box-shadow:0 2px 10px rgba(0,0,0,.2);
+    
+    }
+    
+    h2{
+    
+        text-align:center;
+    
+        color:#155724;
+    
+    }
+    
+    table{
+    
+        width:100%;
+    
+        border-collapse:collapse;
+    
+        margin-top:20px;
+    
+    }
+    
+    table th{
+    
+        background:rgb(213, 240, 213);
+    
+        color:rgb(9, 71, 8);
+    
+        padding:12px;
+    
+    }
+    
+    table td{
+    
+        padding:10px;
+    
+        border:1px solid #ddd;
+    
+        text-align:center;
+    
+    }
+    
+    input,
+    
+    textarea,
+    
+    select{
+    
+        width:100%;
+    
+        padding:10px;
+    
+        margin:8px 0 15px;
+    
+        border:1px solid #ccc;
+    
+        border-radius:5px;
+    
+        box-sizing:border-box;
+    
+    }
+    
+    .btn{
+    
+        padding:10px 18px;
+    
+        color:white;
+    
+        text-decoration:none;
+    
+        border:none;
+    
+        border-radius:5px;
+    
+        cursor:pointer;
+    
+        display:inline-block;
+    
+    }
+    
+    .add{
+    
+        background:#28a745;
+    
+    }
+    
+    .edit{
+    
+        background:#155724;
+    
+    }
+    
+    .delete{
+    
+        background:#dc3545;
+    
+    }
+    
+    .flash{
+    
+        background:#d4edda;
+    
+        color:#155724;
+    
+        padding:10px;
+    
+        margin-bottom:15px;
+    
+        border-radius:5px;
+    
+    }
+    
+    .top-btn{
+    
+        text-align:right;
+    
+        margin-bottom:15px;
+    
+    }
+    
+    footer{
+    
+        background:#155724;
+    
+        color:white;
+    
+        text-align:center;
+    
+        padding:12px;
+        
+    
+        margin-top:150px;
+    
+    }
+    </style>
+
+</head>
+
+<body>
+
+<header>
+
+    <div class="logo">
+
+        Infy Food Express
+
+    </div>
+
+    <div class="menu">
+
+        <span>Hi {{ session['username']}}</span>
+
+        <a href="{{ url_for('owner_dashboard',user_id=session['user_id']) }}">
+
+            Home
+
+        </a>
+
+        <a href="{{ url_for('owner_logout') }}">
+
+            Logout
+
+        </a>
+
+    </div>
+
+</header>
+
+
+
+<div class="container">
+
+    <h2>
+      Items - {{ restaurant[0] }}
+    </h2>
+
+    <div class="top-btn">
+
+        <a class="btn add"
+
+           href="{{ url_for('owner_add_item',
+
+           restaurant_id=restaurant_id) }}">
+
+            + Add Item
+
+        </a>
+
+    </div>
+
+    {% with messages=get_flashed_messages() %}
+
+        {% if messages %}
+
+            {% for msg in messages %}
+
+                <div class="flash">
+
+                    <p style="color:red; text-align: center;">{{ msg }}</p>
+
+                </div>
+
+            {% endfor %}
+
+        {% endif %}
+
+    {% endwith %}
+
+
+
+    <table>
+
+        <tr>
+
+            <th>Name</th>
+
+            <th>Category</th>
+
+            <th>Price</th>
+
+            <th>Available</th>
+
+            <th>Actions</th>
+
+        </tr>
+
+
+
+        {% for item in items %}
+
+        <tr>
+
+            <td>{{ item[1] }}</td>
+
+            <td>{{ item[2] }}</td>
+
+            <td>{{ item[3] }}</td>
+
+            <td>
+
+                {% if item[4] %}
+
+                    Yes
+
+                {% else %}
+
+                    No
+
+                {% endif %}
+
+            </td>
+
+            <td>
+
+                <a class="btn edit"
+
+                   href="{{ url_for('owner_edit_item',item_id=item[0]) }}">
+
+                    Edit
+
+                </a> 
+
+                <a class="btn delete"
+
+                   onclick="return confirm('Delete this item?')"
+
+                   href="{{ url_for('owner_delete_item',
+
+                   item_id=item[0]) }}">
+
+                    Delete
+
+                </a>
+
+            </td>
+
+        </tr>
+
+        {% endfor %}
+
+    </table>
+
+</div>
+
+
+
+<footer>
+
+    Copyright © 2026 Infy Food Express
+
+</footer>
+
+</body>
+
+</html>
