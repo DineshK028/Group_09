@@ -1,0 +1,847 @@
+/*==========================
+COMMON
+===========================*/
+
+*{
+
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+    
+    }
+    
+    body{
+    
+    background:#f7f4e8;
+    
+    }
+    
+    .page{
+    
+    min-height:82vh;
+    padding:30px;
+    display: flex;
+    flex-direction: column;
+    align-items:center;
+    }
+    
+    footer{
+    
+    background:#11823b;
+    
+    height:45px;
+    
+    color:white;
+    
+    display:flex;
+    
+    justify-content:center;
+    
+    align-items:center;
+    
+    }
+    
+    .success{
+       text-align: center;
+       color: green;
+    }
+    .error{
+       text-align: center;
+       color: red;
+    }
+    
+    
+    /*==========================
+    GUEST HEADER
+    ===========================*/
+    
+    .guest-header{
+    
+    height:70px;
+    
+    background:#11823b;
+    
+    display:flex;
+    
+    justify-content:space-between;
+    
+    align-items:center;
+    
+    padding:0 30px;
+    
+    color:white;
+    
+    }
+    
+    .guest-header h1{
+    
+    font-size:36px;
+    
+    }
+    
+    
+    /*==========================
+    CUSTOMER HEADER
+    ===========================*/
+    
+    .customer-header{
+    
+    height:70px;
+    
+    background:#11823b;
+    
+    display:flex;
+    
+    justify-content:space-between;
+    
+    align-items:center;
+    
+    padding:0 30px;
+    
+    color:white;
+    
+    }
+    
+    .logo{
+    
+    font-size:34px;
+    
+    font-weight:bold;
+    
+    }
+    
+     
+    
+    .menu{
+    
+    display:flex;
+    align-items:center;
+    gap:12px;
+    
+    }
+    
+    .welcome{
+    
+    color:#000;
+    background-color: #d9d9d9;
+    padding: 8px 18px;
+    border-radius: 20px;
+    font-weight:bold;
+    
+    }
+    
+    .base-btn{
+    
+    text-decoration:none;
+    background-color: #5b8f45;
+    color: black;
+    padding: 8px 18px;
+    border-radius: 20px;
+    transition: 0.3s;
+    font-weight: bold;
+    }
+    .base-btn:hover{
+       background: #3d6b2d;
+    }
+    
+    /*==================================
+    LOGIN PAGE
+    ==================================*/
+    
+    .login-container{
+    
+       display:flex;
+       justify-content:center;
+       align-items:center;
+    
+       margin-top:60px;
+    
+    }
+    
+    .login-card{
+    
+       width:470px;
+    
+       background:white;
+    
+       padding:35px;
+    
+       border-radius:8px;
+    
+       box-shadow:0px 3px 10px rgba(0,0,0,.25);
+    
+    }
+    
+    .login-card h2{
+    
+       text-align:center;
+    
+       margin-bottom:30px;
+    
+    }
+    
+    .form-group{
+    
+       margin-bottom:20px;
+    
+    }
+    
+    .form-group label{
+    
+       display:block;
+    
+       margin-bottom:8px;
+    
+       font-weight:bold;
+    
+    }
+    
+    .form-control{
+    
+       width:100%;
+    
+       padding:10px;
+    
+       border:1px solid #ccc;
+    
+       border-radius:5px;
+    
+       font-size:15px;
+    
+    }
+    
+    .button-group{
+    
+       display:flex;
+    
+       justify-content:center;
+    
+       gap:20px;
+    
+       margin-top:20px;
+    
+    }
+    
+    .login-btn{
+    
+       background:black;
+    
+       color:white;
+    
+       border:none;
+    
+       padding:10px 30px;
+    
+       border-radius:5px;
+    
+       cursor:pointer;
+    
+    }
+    
+    .reset-btn{
+    
+       background:#d8d8d8;
+    
+       border:none;
+    
+       padding:10px 30px;
+    
+       border-radius:5px;
+    
+       cursor:pointer;
+    
+    }
+    
+    .bottom-links{
+    
+       display:flex;
+    
+       justify-content:space-between;
+    
+       margin-top:25px;
+    
+    }
+    
+    .bottom-links a{
+    
+       text-decoration:none;
+    
+       color:black;
+    
+       font-weight:bold;
+    
+    }
+    
+    .bottom-links a:hover{
+    
+       color:#11823b;
+    
+    }
+    
+    .nav-btn{
+    
+       color:white;
+    
+       text-decoration:none;
+    
+       font-weight:bold;
+    }
+    
+    
+    /*==========================
+    REGISTER PAGE
+    ==========================*/
+    
+    .register-wrapper{
+    
+       width:320px;
+    
+       margin:40px auto;
+    
+       text-align:center;
+    
+    }
+    
+    .register-wrapper h2{
+    
+       margin-bottom:20px;
+    
+       font-size:30px;
+    
+    }
+    
+    .register-form{
+    
+       background:#fff;
+    
+       padding:20px;
+    
+    }
+    
+    .form-group{
+    
+       margin-bottom:15px;
+    
+       text-align:left;
+    
+    }
+    
+    .form-group label{
+    
+       display:block;
+    
+       margin-bottom:5px;
+    
+       font-size:14px;
+    
+       font-weight:bold;
+    
+    }
+    
+    .form-input{
+    
+       width:100%;
+    
+       padding:8px;
+    
+       border:1px solid #ccc;
+    
+       border-radius:2px;
+    
+       font-size:14px;
+    
+    }
+    
+    .register-btn{
+    
+       width:100%;
+    
+       background:#0b6b20;
+    
+       color:white;
+    
+       border:none;
+    
+       padding:10px;
+    
+       margin-top:10px;
+    
+       cursor:pointer;
+    
+       font-size:15px;
+    
+       font-weight:bold;
+    
+    }
+    
+    .register-btn:hover{
+    
+       background:#095518;
+    
+    }
+    
+    .top-btn{
+    
+       background:white;
+    
+       color:black;
+    
+       padding:8px 20px;
+    
+       border-radius:20px;
+    
+       text-decoration:none;
+    
+       font-weight:bold;
+    
+    }
+    
+    
+    /*==========================
+    FORGOT PASSWORD PAGE
+    ==========================*/
+    
+    .forgot-container{
+    
+       width:430px;
+    
+       margin:35px auto;
+    
+       text-align:center;
+    
+    }
+    
+    .forgot-container h2{
+    
+       font-size:18px;
+    
+       margin-bottom:20px;
+    
+       font-weight:bold;
+    
+    }
+    
+    .forgot-form{
+    
+       background:#fff;
+    
+       padding:25px;
+    
+       border-radius:4px;
+    
+    }
+    
+    .forgot-form .form-group{
+    
+       margin-bottom:18px;
+    
+       text-align:left;
+    
+    }
+    
+    .forgot-form label{
+    
+       display:block;
+    
+       margin-bottom:8px;
+    
+       font-size:14px;
+    
+       font-weight:bold;
+    
+    }
+    
+    .form-input{
+    
+       width:100%;
+    
+       height:38px;
+    
+       border:1px solid #ddd;
+    
+       padding:8px;
+    
+       font-size:14px;
+    
+    }
+    
+    .forgot-btn{
+    
+       width:100%;
+    
+       height:42px;
+    
+       background:#0b6b20;
+    
+       color:white;
+    
+       border:none;
+    
+       font-size:15px;
+    
+       font-weight:bold;
+    
+       cursor:pointer;
+    
+    }
+    
+    .forgot-btn:hover{
+    
+       background:#095518;
+    
+    }
+    
+    
+    /*==========================
+    CUSTOMER DASHBOARD
+    ==========================*/
+    
+    .dashboard-container{
+    
+       text-align:center;
+    
+       margin-top:45px;
+    
+    }
+    
+    .dashboard-container h2{
+    
+       font-size:20px;
+    
+       margin-bottom:35px;
+    
+       font-weight:bold;
+    
+    }
+    
+    .dashboard-buttons{
+    
+       display:flex;
+    
+       justify-content:center;
+    
+       gap:22px;
+    
+    }
+    
+    .dashboard-btn{
+    
+       background:#27b348;
+    
+       color:black;
+    
+       text-decoration:none;
+    
+       width:180px;
+    
+       height:42px;
+    
+       border-radius:25px;
+    
+       display:flex;
+    
+       justify-content:center;
+    
+       align-items:center;
+    
+       font-weight:bold;
+    
+       font-size:16px;
+    
+       transition:0.3s;
+    
+    }
+    
+    .dashboard-btn:hover{
+    
+       background:#1f963b;
+    
+    }
+    
+    
+    /*==========================
+    PLACE ORDER
+    ==========================*/
+    
+    .restaurant-card{
+       width: 80%;
+       margin: 5px auto;
+       background-color: #fff;
+       border-radius: 12px;
+       padding: 20px 30px;
+       display: flex;
+       justify-content: space-between;
+       align-items: center;
+       box-shadow: 0 2px 8px rgba(0,0,0,.12);
+    }
+    
+    .restaurant-info h3{
+       margin: 0;
+       font-size: 18px;
+       color: #222;
+    }
+    
+    .restaurant-info p{
+       margin-top: 5px;
+       color: #666;
+       font-size: 13px;
+       line-height: 1.6;
+    }
+    
+    .black-btn{
+       background: #000;
+       color: #fff;
+       text-decoration: none;
+       padding: 12px 28px;
+       border-radius: 8px;
+       font-size: 16px;
+       font-weight: bold;
+       transition: 0.3s;
+    }
+    
+    .black-btn:hover{
+       background: #333;
+    }
+    
+    /*==========================
+    MENU
+    ==========================*/
+    
+    .menu-card{
+       width: 70%;
+       margin: 7px auto;
+       background: #fff;
+       border-radius: 12px;
+       padding: 10px 15px;
+       display: flex;
+       justify-content: space-between;
+       align-items: center;
+       box-shadow: 0 2px 8px rgba(0,0,0,.12);
+    }
+    
+    .menu-card h3{
+       margin: 0;
+       font-size: 18px;
+       color: #222;
+    }
+    
+    .menu-card p{
+       margin-top: 8px;
+       font-size: 12px;
+       color: #666;
+    }
+    .menu-card form{
+       display: flex;
+       align-items: center;
+       gap: 15px;
+    }
+    
+    .menu-card input[type="number"]{
+       width: 80px;
+       padding: 10px;
+       border: 1px solid #ccc;
+       border-radius: 4px;
+       font-size: 14px;
+       outline: none;
+    }
+    
+    .menu-card button{
+       background: #000;
+       color: #fff;
+       border: none;
+       padding: 10px 20px;
+       border-radius: 8px;
+       cursor: pointer;
+       font-size: 14px;
+       font-weight: bold;
+    }
+    
+    .menu-card button:hover{
+       background: #333;
+    }
+    
+    .menu-black{
+       margin-top: 8px;
+    }
+    
+    /*==========================
+    CART
+    ==========================*/
+    
+    .cart-container{
+       width:75%;
+       margin:40px auto;
+       text-align:center;
+    }
+    
+    .restaurant-name{
+       color:#666;
+       margin-bottom:25px;
+    }
+    
+    .cart-card{
+       width:100%;
+       background:white;
+       padding:18px;
+       border-radius:6px;
+       display:flex;
+       justify-content:space-between;
+       align-items:center;
+       margin-bottom:18px;
+       box-shadow:0 2px 6px rgba(0,0,0,.1);
+    }
+    
+    .cart-details{
+       text-align:left;
+    }
+    
+    .cart-details h3{
+       margin-bottom:5px;
+    }
+    
+    .remove-btn{
+       background:#d9534f;
+       color:white;
+       border:none;
+       padding:10px 18px;
+       border-radius:5px;
+       cursor:pointer;
+       font-weight:bold;
+    }
+    
+    .remove-btn:hover{
+       background:#c9302c;
+    }
+    
+    .cart-total{
+       text-align:right;
+       margin-top:25px;
+    }
+    
+    .checkout-btn{
+       display:inline-block;
+       background:black;
+       color:white;
+       padding:12px 24px;
+       border-radius:5px;
+       text-decoration:none;
+       margin-top:15px;
+    }
+    
+    .checkout-btn:hover{
+       background:#222;
+    }
+    
+    
+    /* Checkout Page */
+    
+    .checkout-container{
+       width:450px;
+       margin:40px auto;
+       text-align:center;
+    }
+    
+    .checkout-container h1{
+       font-size:34px;
+       margin-bottom:10px;
+    }
+    
+    .amount-info{
+       color:#666;
+       margin-bottom:20px;
+    }
+    
+    .checkout-form{
+       background:#fff;
+       padding:25px;
+       border-radius:6px;
+       box-shadow:0 2px 6px rgba(0,0,0,.15);
+       text-align:left;
+    }
+    
+    .checkout-form label{
+       display:block;
+       font-weight:bold;
+       margin-top:15px;
+       margin-bottom:8px;
+    }
+    
+    .checkout-form textarea,
+    .checkout-form input,
+    .checkout-form select{
+       width:100%;
+       padding:10px;
+       border:1px solid #ddd;
+       border-radius:4px;
+       font-size:15px;
+       box-sizing:border-box;
+    }
+    
+    .checkout-form textarea{
+       resize:none;
+    }
+    
+    .place-order-btn{
+       width:100%;
+       margin-top:25px;
+       background:#000;
+       color:#fff;
+       border:none;
+       padding:12px;
+       border-radius:5px;
+       font-size:16px;
+       font-weight:bold;
+       cursor:pointer;
+    }
+    
+    .place-order-btn:hover{
+       background:#222;
+    }
+    
+     
+    
+    
+    /* My Orders */
+    
+    .orders-container{
+       width:80%;
+       margin:45px auto;
+       text-align:center;
+    }
+    
+    .orders-container h1{
+       margin-bottom:35px;
+       font-size:36px;
+    }
+    
+    .orders-table{
+       width:100%;
+       background:white;
+       border-radius:6px;
+       overflow:hidden;
+       border-collapse:collapse;
+       box-shadow:0 2px 6px rgba(0,0,0,.15);
+    }
+    
+    .orders-table th{
+       padding:18px;
+       font-size:17px;
+       background:#ffffff;
+    }
+    
+    .orders-table td{
+       padding:18px;
+       font-size:16px;
+    }
+    
+    .orders-table tr{
+       border-bottom:1px solid #eee;
+    }
+    
+    .orders-table tr:last-child{
+       border-bottom:none;
+    }
+     
+    
+    
