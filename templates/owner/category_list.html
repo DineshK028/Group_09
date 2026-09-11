@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+    <title>Categories</title>
+
+    <style>
+
+        *{
+
+            margin:0;
+
+            padding:0;
+
+            box-sizing:border-box;
+
+            font-family:Arial, Helvetica, sans-serif;
+
+        }
+
+        body{
+
+            background:#f6f4dc;
+
+        }
+
+        .header{
+
+            width:100%;
+
+            background:#0d7b50;
+
+            color:white;
+
+            padding:15px 40px;
+
+            display:flex;
+
+            justify-content:space-between;
+
+            align-items:center;
+
+        }
+
+        .header h2{
+
+            font-size:28px;
+
+        }
+
+        .nav a{
+
+            text-decoration:none;
+
+            color:white;
+
+            background:#2f9f6a;
+
+            padding:8px 18px;
+
+            border-radius:20px;
+
+            margin-left:10px;
+
+        }
+
+        .container{
+
+            width:70%;
+
+            margin:50px auto;
+
+        }
+
+        h1{
+
+            text-align:center;
+
+            margin-bottom:30px;
+
+        }
+
+        .add-btn{
+
+            float:right;
+
+            margin-bottom:15px;
+
+            text-decoration:none;
+
+            background:#343a40;
+
+            color:white;
+
+            padding:10px 20px;
+
+            border-radius:5px;
+
+        }
+
+        table{
+
+            width:100%;
+
+            border-collapse:collapse;
+
+            background:white;
+
+        }
+
+        th,td{
+
+            padding:15px;
+
+            text-align:center;
+
+            border:1px solid #ddd;
+
+        }
+
+        th{
+
+            background:#f0f0f0;
+
+        }
+
+        .edit{
+
+            background:#198754;
+
+            color:white;
+
+            padding:8px 15px;
+
+            text-decoration:none;
+            height: 50px;
+
+            border-radius:4px;
+            padding-right: 5px;
+           
+
+        }
+
+        .delete{
+
+            background:#dc3545;
+
+            color:white;
+
+            border:none;
+
+            padding:8px 15px;
+
+            border-radius:4px;
+
+            cursor:pointer;
+
+        }
+
+        .footer{
+
+            position:fixed;
+
+            bottom:0;
+
+            width:100%;
+
+            background:#0d7b50;
+
+            color:white;
+
+            text-align:center;
+
+            padding:10px;
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="header">
+
+    <h2>Infy Food Express</h2>
+
+    <div class="nav">
+
+        <span>Hi {{session[ 'username' ]}}<span>
+
+        <a href="/owner/dashboard">Home</a>
+
+        <a href="{{ url_for('owner_logout') }}">Logout</a>
+
+    </div>
+
+</div>
+
+<div>
+    {% with messages=get_flashed_messages() %}
+
+        {% if messages %}
+
+            {% for msg in messages %}
+            
+                <div class="flash">
+
+                    <p style="color:red; text-align: center;">{{ msg }}</p>
+
+                </div>
+
+            {% endfor %}
+
+        {% endif %}
+
+    {% endwith %}
+</div>
+
+
+
+<div class="container">
+
+<h1>Categories - {{ res[0] }}</h1>
+
+<a href="/owner/category/add/{{restaurant_id}}" class="add-btn">
+
++ Add Category
+
+</a>
+
+<table>
+
+<tr>
+
+    <th>Name</th>
+
+    <th>Actions</th>
+
+</tr>
+
+{% if categories %}
+
+{% for category in categories %}
+
+<tr>
+
+<td>{{category[1]}}</td>
+
+<td>
+
+<a class="edit" href="/owner/category/edit/{{category[0]}}">Edit</a>
+
+<form action="/owner/category/delete/{{category[0]}}" method="POST" style="display:inline;">
+
+<input type="hidden" name="restaurant_id" value="{{restaurant_id}}">
+
+<button class="delete" onclick="return confirm('Delete this category?')">Delete</button>
+
+</form>
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+{% else %}
+
+<tr>
+
+<td colspan="2">
+
+No Categories Available
+
+</td>
+
+</tr>
+
+{% endif %}
+
+</table>
+
+</div>
+
+
+
+<div class="footer">
+
+Copyright © 2026 Infy Food Express
+
+</div>
+
+</body>
+
+</html>
+
+
+
+
+
