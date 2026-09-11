@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+    <title>Add Item</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        body{
+
+margin:0;
+
+font-family:Arial,Helvetica,sans-serif;
+
+background:#f4f4f4;
+
+}
+
+header{
+
+background:#155724;
+
+color:white;
+
+padding:15px 30px;
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+}
+
+header a{
+
+color:white;
+
+text-decoration:none;
+
+margin-left:20px;
+
+}
+
+.container{
+
+width:80%;
+
+margin:30px auto;
+
+background:white;
+
+padding:25px;
+
+border-radius:8px;
+
+box-shadow:0 2px 10px rgba(0,0,0,.2);
+
+}
+
+h2{
+
+text-align:center;
+
+color:#023410;
+
+}
+
+table{
+
+width:100%;
+
+border-collapse:collapse;
+
+margin-top:20px;
+
+}
+
+table th{
+
+background:#1976d2;
+
+color:white;
+
+padding:12px;
+
+}
+
+table td{
+
+padding:10px;
+
+border:1px solid #ddd;
+
+text-align:center;
+
+}
+
+input,
+
+textarea,
+
+select{
+
+width:100%;
+
+padding:10px;
+
+margin:8px 0 15px;
+
+border:1px solid #ccc;
+
+border-radius:5px;
+
+box-sizing:border-box;
+
+}
+
+.btn{
+
+padding:10px 18px;
+
+color:white;
+
+text-decoration:none;
+
+border:none;
+
+border-radius:5px;
+
+cursor:pointer;
+
+display:inline-block;
+
+}
+
+.add{
+
+background:#28a745;
+
+}
+
+.edit{
+
+background:#ff9800;
+
+}
+
+.delete{
+
+background:#dc3545;
+
+}
+
+.flash{
+
+background:#d4edda;
+
+color:#155724;
+
+padding:10px;
+
+margin-bottom:15px;
+
+border-radius:5px;
+
+}
+
+.top-btn{
+
+text-align:right;
+
+margin-bottom:15px;
+
+}
+
+footer{
+
+background:#0d47a1;
+
+color:white;
+
+text-align:center;
+
+padding:12px;
+
+margin-top:40px;
+
+}</style>
+
+</head>
+
+<body>
+
+<header>
+
+    <div class="logo">
+
+        Infy Food Express
+
+    </div>
+
+    <div class="menu">
+
+        <span>Hi {{ session['username']}}</span>
+
+        <a href="{{ url_for('owner_dashboard',user_id=session['user_id']) }}">
+
+            Home
+
+        </a>
+
+        <a href="/logout">
+
+            Logout
+
+        </a>
+
+    </div>
+
+</header>
+
+<div class="container">
+
+    <h2>Edit Item</h2>
+
+    {% with messages = get_flashed_messages() %}
+
+    {% if messages %}
+
+        {% for message in messages %}
+
+            <div class="flash">{{ message }}</div>
+
+        {% endfor %}
+
+    {% endif %}
+
+    {% endwith %}
+
+    <form method="POST">
+
+        <label>Category</label>
+
+        <select name="category" required>
+
+            {% for category in categories %}
+
+                <option value="{{ category[0] }}">
+
+                    {{ category[1] }}
+
+                </option>
+
+            {% endfor %}
+
+        </select>
+
+        <label>Item Name</label>
+
+        <input type="text" name="name" required>
+
+        <label>Description</label>
+
+        <textarea name="description" rows="3" required></textarea>
+
+        <label>Price</label>
+
+        <input type="number" step="0.01" name="price" required>
+
+        <label>Quantity</label>
+
+        <input type="number" name="quantity" required>
+
+        <label>Ingredients</label>
+
+        <textarea name="ingredients" rows="3"></textarea>
+
+        <label>Vegetarian</label>
+
+        <select name="vegetarian">
+
+            <option value="1">Yes</option>
+
+            <option value="0">No</option>
+
+        </select>
+
+        <label>Spicy</label>
+
+        <select name="spicy">
+
+            <option value="1">Yes</option>
+
+            <option value="0">No</option>
+
+        </select>
+
+        <label>Available</label>
+
+        <select name="available">
+
+            <option value="1">Yes</option>
+
+            <option value="0">No</option>
+
+        </select>
+
+        <label>Preparation Time (Minutes)</label>
+
+        <input type="number" name="preparation_time" required>
+
+        <br><br>
+
+        <button class="btn add" type="submit">Save</button>
+
+        
+
+    </form>
+
+</div>
+
+</body>
+
+</html>
