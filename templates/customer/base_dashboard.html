@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+
+<html>
+
+
+ 
+
+<head>
+
+
+ 
+
+<meta charset="UTF-8">
+
+
+ 
+
+<title>
+
+
+ 
+
+{% block title %}
+
+
+ 
+
+{% endblock %}
+
+
+ 
+
+</title>
+
+
+
+
+
+
+ 
+
+</head>
+
+
+ 
+
+<body>
+
+
+ 
+ <link rel="stylesheet" href="{{ url_for('static', filename='customer/style.css') }}">
+<header class="customer-header">
+
+
+ 
+
+<div class="logo">
+
+
+ 
+
+Infy Food Express
+
+
+ 
+
+</div>
+
+
+ 
+
+<div class="menu">
+
+    <a class="top-btn">Hi {{ session['user'][1] }}</a>
+
+    <a href="{{ url_for('customer_logout') }}" class="top-btn">Logout</a>
+
+</div>
+
+
+
+
+
+
+ 
+
+</header>
+
+
+ 
+
+<div class="page">
+
+
+ 
+
+{% block content %}
+
+
+ 
+
+{% endblock %}
+
+
+ 
+
+</div>
+
+
+ 
+
+<footer>
+
+
+ 
+
+Copyright © 2026 Infy Food Express
+
+
+ 
+
+</footer>
+
+
+ 
+
+</body>
+
+ 
+
+</html>
