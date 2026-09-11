@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Profile</title>
+
+    <style>
+
+        body{
+            margin:0;
+            font-family:Arial, Helvetica, sans-serif;
+            background:rgb(230, 213, 191);
+        }
+
+        header{
+            background:#0b7d3b;
+            color:white;
+            padding:12px 20px;
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+        }
+
+        .brand{
+            font-size:30px;
+            font-weight:bold;
+        }
+
+        .right{
+            display:flex;
+            gap:10px;
+            align-items:center;
+        }
+
+        .pill{
+            text-decoration:none;
+            border:none;
+            border-radius:20px;
+            padding:8px 18px;
+            font-weight:bold;
+            font-size:14px;
+        }
+
+        .white{
+            background:white;
+            color:#0b7d3b;
+        }
+
+        .green{
+            background:#2f6b3f;
+            color:white;
+        }
+
+        .container{
+    display:flex;
+    justify-content:center;
+    padding:35px 20px;
+}
+
+.card{
+    width:820px;
+    background:white;
+    border-radius:8px;
+    box-shadow:0 0 10px rgba(0,0,0,0.25);
+    padding:30px;
+}
+
+.card h2{
+    text-align:center;
+    margin-top:0;
+    margin-bottom:25px;
+    font-size:28px;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    font-size:15px;
+}
+
+td{
+    padding:14px 18px;
+    border:1px solid #d9d9d9;
+}
+
+td:first-child{
+    width:220px;
+    font-weight:bold;
+    background:#edf7ed; /* very light green */
+}
+
+td:last-child{
+    background:white;
+}
+
+.buttons{
+    text-align:center;
+    margin-top:25px;
+}
+
+.btn{
+    display:inline-block;
+    background:#123b2a;
+    color:white;
+    text-decoration:none;
+    padding:10px 22px;
+    border-radius:4px;
+    font-weight:bold;
+    margin:0 8px;
+}
+
+.btn:hover{
+    background:#0d2f20;
+}
+
+
+        .footer{
+            position:fixed;
+            bottom:0;
+            width:100%;
+            background:#0b7d3b;
+            color:white;
+            text-align:center;
+            padding:10px;
+        }
+
+        .flash{
+            text-align:center;
+            color:red;
+            margin-bottom:20px;
+            font-weight:bold;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<header>
+
+    <div class="brand">
+        Infy Food Express
+    </div>
+
+    <div class="right">
+
+        <span class="pill white">
+            Hi {{admin_name}}
+        </span>
+
+        <a href="{{url_for('admin_dashboard')}}" class="pill green">
+            Home
+        </a>
+
+        <a href="{{url_for('admin_logout')}}" class="pill green">
+            Logout
+        </a>
+
+    </div>
+
+</header>
+
+<div class="container">
+
+<div class="card">
+
+<h2>My Profile</h2>
+
+{% with messages=get_flashed_messages() %}
+{% if messages %}
+    {% for msg in messages %}
+        <div class="flash">{{msg}}</div>
+    {% endfor %}
+{% endif %}
+{% endwith %}
+
+<table>
+
+    <tr>
+        <td>Name</td>
+        <td>{{ admin[0] }}</td>
+    </tr>
+    
+    <tr>
+        <td>Email</td>
+        <td>{{ admin[1] }}</td>
+    </tr>
+    
+    <tr>
+        <td>Phone</td>
+        <td>{{ admin[2] }}</td>
+    </tr>
+    
+    <tr>
+        <td>Role</td>
+        <td>{{ admin[3] }}</td>
+    </tr>
+    
+    <tr>
+        <td>Address</td>
+        <td>{{ admin[4] }}</td>
+    </tr>
+    
+    <tr>
+        <td>City</td>
+        <td>{{ admin[5] }}</td>
+    </tr>
+    
+    <tr>
+        <td>ZIP Code</td>
+        <td>{{ admin[6] }}</td>
+    </tr>
+    
+    </table>
+    
+
+<div class="buttons">
+
+<a href="{{url_for('admin_dashboard')}}" class="btn">
+Back to Dashboard
+</a>
+
+<a href="{{url_for('admin_change_password')}}" class="btn">
+Reset Password
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="footer">
+Copyright © 2026 Infy Food Express
+</div>
+
+</body>
+</html>
+
+                        <label>Type</label>
+
+                        <select name="user_type" id="user_type" onchange="toggleDeliveryFields()" required>
+
+                            <option value="Admin">Admin</option>
+
+                            <option value="Restaurant_Owner">Restaurant Owner</option>
+
+                            <option value="Delivery_Person">Delivery Person</option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="field">
+
+                        <label>Address</label>
+
+                        <input type="text" name="address" required>
+
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="field">
+
+                        <label>City</label>
+
+                        <input type="text" name="city" required>
+
+                    </div>
+
+                    <div class="field">
+
+                        <label>ZIP Code</label>
+
+                        <input type="text" name="zip_code" maxlength="6">
+
+                    </div>
+
+                </div>
+
+                <div class="delivery-section" id="deliverySection" style="display:none;">
+
+                    <h4>Delivery Details</h4>
+
+                    <div class="row">
+
+                        <div class="field">
+
+                            <label>Vehicle Type</label>
+
+                            <input type="text" name="vehicle_type">
+
+                        </div>
+
+                        <div class="field">
+
+                            <label>Vehicle Number</label>
+
+                            <input type="text" name="vehicle_number" placeholder="KA-01-AB-1234">
+
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+
+                        <div class="field">
+
+                            <label>License Number</label>
+
+                            <input type="text" name="license_number" placeholder="KA-01-2020-1234567">
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="btn-group">
+
+                    <button type="submit" class="save-btn">Add User</button>
+
+                    <button type="reset" class="reset-btn">Reset</button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+    <div class="footer">
+
+        Copyright &copy; 2026 Infy Food Express
+
+    </div>
+
+</body>
+
+</html>
