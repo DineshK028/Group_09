@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+    <title>Edit Restaurant</title>
+
+    <style>
+
+        body { background-color:rgb(230, 213, 191); font-family: Arial; margin: 0; }
+
+        .header {
+
+            display: flex; justify-content: space-between; align-items: center;
+
+            padding: 12px 25px; color: white; background-color: #0b7d3b; box-sizing: border-box;
+
+        }
+
+        .header .brand { font-weight: bold; font-size: 1.2em; }
+
+        .header .right { display: flex; align-items: center; gap: 10px; }
+
+        .pill{
+            text-decoration:none;
+            padding:6px 16px;
+            border-radius:20px;
+            font-size:12px;
+            font-weight:bold;
+            border:none;
+        }
+        
+        .pill-white{
+            background:white;
+            color:#0b7d3b;
+        }
+        
+        .pill-green{
+            background:#2f6d39;
+            color:white;
+        }
+        
+        form.inline{
+            margin:0;
+        }
+        
+        .container{
+            display:flex;
+            justify-content:center;
+            padding:22px 20px 70px;
+        }
+        
+        .card{
+            width:420px;
+            background:white;
+            border-radius:6px;
+            box-shadow:0 0 8px rgba(0,0,0,0.25);
+            padding:18px 20px;
+        }
+        
+        .card h2{
+            text-align:center;
+            margin-top:0;
+            margin-bottom:16px;
+            font-size:20px;
+        }
+        
+        .flash-msg{
+            color:#c0392b;
+            text-align:center;
+            font-size:13px;
+            margin-bottom:10px;
+        }
+        
+        .field{
+            margin-bottom:8px;
+        }
+        
+        .row{
+            display:flex;
+            gap:12px;
+            margin-bottom:8px;
+        }
+        
+        .row .field{
+            flex:1;
+            margin-bottom:0;
+        }
+        
+        label{
+            display:block;
+            font-size:12px;
+            font-weight:bold;
+            margin-bottom:3px;
+        }
+        
+        input,
+        select{
+            width:100%;
+            height:30px;
+            padding:5px 8px;
+            border:1px solid #cccccc;
+            border-radius:4px;
+            box-sizing:border-box;
+            font-size:12px;
+        }
+        
+        .checkbox-row{
+            display:flex;
+            align-items:center;
+            gap:8px;
+            margin-top:6px;
+            margin-bottom:12px;
+        }
+        
+        .checkbox-row input{
+            width:auto;
+            margin:0;
+        }
+        
+        .checkbox-row label{
+            margin:0;
+            font-size:13px;
+            font-weight:normal;
+        }
+        
+        .btn-group{
+            text-align:center;
+            margin-top:8px;
+        }
+        
+        .save-btn{
+            background:#123b2a;
+            color:white;
+            border:none;
+            border-radius:4px;
+            padding:8px 22px;
+            font-weight:bold;
+            cursor:pointer;
+        }
+        
+        .save-btn:hover{
+            background:#0d2e20;
+        }
+        
+        .footer{
+            background:#0b7d3b;
+            color:white;
+            text-align:center;
+            padding:10px;
+            position:fixed;
+            bottom:0;
+            width:100%;
+            font-size:13px;
+            font-weight:bold;
+        }
+        </style>
+
+</head>
+
+<body>
+
+    <div class="header">
+
+        <div class="brand">Infy Food Express</div>
+
+        <div class="right">
+
+            <span class="pill pill-white">Hi {{ admin_name }}</span>
+
+            <a href="{{ url_for('admin_dashboard') }}" class="pill pill-green">Home</a>
+
+            <form class="inline" action="{{ url_for('admin_logout') }}" method="POST">
+
+                <button type="submit" class="pill pill-green">Logout</button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+    <div class="container">
+
+        <div class="card">
+
+            <h2>Edit Restaurant</h2>
+
+            {% with messages = get_flashed_messages() %}
+
+                {% if messages %}
+
+                    {% for message in messages %}
+
+                        <div class="flash-msg">{{ message }}</div>
+
+                    {% endfor %}
+
+                {% endif %}
+
+            {% endwith %}
+
+            <form action="{{ url_for('admin_edit_restaurant', restaurant_id=restaurant[0]) }}" method="POST">
+
+                <div class="field">
+
+                    <label>Owner</label>
+
+                    <select name="owner_id" required>
+
+                        {% for owner in owners %}
+
+                            <option value="{{ owner[0] }}" {% if owner[0] == restaurant[1] %}selected{% endif %}>{{ owner[1] }}</option>
+
+                        {% endfor %}
+
+                    </select>
+
+                </div>
+
+                <div class="field">
+
+                    <label>Restaurant Name</label>
+                    <input type="text" name="name" value="{{ restaurant[2] }}" required>
+                </div>
+
+                <div class="field">
+                    <label>Cuisine Type</label>
+                    <input type="text" name="cuisine_type" value="{{ restaurant[3] }}" required>
+                </div>
+
+                <div class="field">
+                    <label>Address</label>
+                    <input type="text" name="address" value="{{ restaurant[4] }}" required>
+                </div>
+                <div class="row">
+                    <div class="field">
+                        <label>City</label>
+                        <input type="text" name="city" value="{{ restaurant[5] }}" required>
+                    </div>
+                    <div class="field">
+                        <label>ZIP Code</label>
+                        <input type="text" name="zip_code" value="{{ restaurant[6] or '' }}" maxlength="6">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="field">
+                        <label>Contact Phone</label>
+                        <input type="text" name="contact_phone" value="{{ restaurant[7] }}" maxlength="10" required>
+                    </div>
+                    <div class="field">
+                        <label>Contact Email</label>
+                        <input type="email" name="contact_email" value="{{ restaurant[8] }}" required>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="field">
+                        <label>Delivery Fee</label>
+                        <input type="number" step="1.00" name="delivery_fee" value="{{ restaurant[12] }}" min="15.00">
+                    </div>
+                    <div class="field">
+                        <label>Minimum Order</label>
+                        <input type="number" step="1.00" name="minimum_order" value="{{ restaurant[13] }}" min="1.00">
+                    </div>
+                    <div class="field">
+                        <label>Open</label>
+                        <select name="is_open" required>
+                            <option value="1" {% if restaurant[9] %}selected{% endif %}>Yes</option>
+                            <option value="0" {% if not restaurant[9] %}selected{% endif %}>No</option>
+    
+                        </select>
+    
+                    </div>
+
+                </div>
+                            <div class="btn-group">
+
+                    <button type="submit" class="save-btn">Save Changes</button>
+                </div>
+                
+
+            </form>
+
+        </div>
+
+    </div>
+
+    <div class="footer">
+
+        Copyright &copy; 2026 Infy Food Express
+
+    </div>
+
+</body>
+
+</html>
