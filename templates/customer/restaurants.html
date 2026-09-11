@@ -1,0 +1,105 @@
+{% extends "customer/base_customer.html" %}
+
+
+ 
+
+{% block title %}
+
+Restaurants
+
+{% endblock %}
+
+
+ 
+
+{% block content %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='customer/style.css') }}">
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+
+            {% if messages %}
+
+                {% for category, message in messages %}
+
+                    <div class="{{ category }}">
+
+                        {{ message }}
+
+                    </div>
+
+                {% endfor %}
+
+            {% endif %}
+
+        {% endwith %}
+
+<h2 class="page-title">Open Restaurants</h2>
+
+
+ 
+
+{% for restaurant in restaurants %}
+
+
+ 
+
+<div class="restaurant-card">
+
+
+ 
+
+    <div class="restaurant-info">
+
+        <h3>{{ restaurant[0] }} <span style="font-weight: 100;">({{ restaurant[4] }}) -- {{ restaurant[5] }}</span></h3>
+
+
+ 
+
+        <p>
+
+            Min Order : ₹{{ restaurant[1] }}
+
+            •
+
+            Delivery : ₹{{ restaurant[2] }}
+
+        </p>
+
+    </div>
+
+
+ 
+
+    <div>
+
+
+ 
+
+        <a href="{{ url_for('customer_menu', id=restaurant[3]) }}"
+
+           class="black-btn">
+
+            See Menu
+
+        </a>
+
+
+ 
+
+    </div>
+
+
+ 
+
+</div>
+
+
+ 
+
+{% endfor %}
+
+
+ 
+
+{% endblock %}
