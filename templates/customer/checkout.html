@@ -1,0 +1,68 @@
+{% extends "customer/base_customer.html" %}
+
+
+ 
+
+{% block title %}
+
+Checkout
+
+{% endblock %}
+
+{% block content %}
+
+<div class="checkout-container">
+
+    <h1>Checkout — {{ restaurant[0] }}</h1>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+
+            {% if messages %}
+
+                {% for category, message in messages %}
+
+                    <div class="{{ category }}">
+
+                        {{ message }}
+
+                    </div>
+
+                {% endfor %}
+
+            {% endif %}
+
+        {% endwith %}
+
+    <p class="amount-info">Items total: ₹{{ items_total }} • Delivery: ₹{{ delivery_charge }} </p>
+
+    <form action="{{ url_for('customer_place_order') }}" method="POST" class="checkout-form">
+
+        <label>Delivery Address</label>
+
+        <textarea name="address" rows="3" required>{{ customer.address }}</textarea>
+
+        <label>Delivery Instruction</label>
+
+        <input type="text" name="instruction" placeholder="Optional">
+
+        <label>Payment Method</label>
+
+        <select name="payment">
+
+            <option value="COD">Cash On Delivery</option>
+
+            <option value="wallet">Wallet</option>
+
+            <option value="credit_card">Credit Card</option>
+
+            <option value="debit_card">Debit Card</option>
+
+        </select>        
+
+        <button type="submit" class="place-order-btn">Place Order</button>
+
+    </form>
+
+</div>
+
+{% endblock %}
