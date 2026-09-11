@@ -1,0 +1,91 @@
+{% extends "customer/base_customer.html" %}
+
+
+ 
+
+{% block title %}
+
+Cart
+
+{% endblock %}
+
+
+ 
+
+{% block content %}
+
+<div class="cart-container">
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+
+            {% if messages %}
+
+                {% for category, message in messages %}
+
+                    <div class="{{ category }}">
+
+                        {{ message }}
+
+                    </div>
+
+                {% endfor %}
+
+            {% endif %}
+
+        {% endwith %}
+
+    <h1>Your Cart</h1>
+
+    {% if total!=0 %}
+
+    <p class="restaurant-name">
+
+        Restaurant: {{ restaurant[0] }}
+
+    </p>
+
+    {% for item in cart_items %}
+
+    <div class="cart-card">
+
+        <div class="cart-details">
+
+            <h3>{{ item.item_name }}</h3>
+
+            <p>Qty: {{ item.quantity }}&nbsp;&nbsp;•&nbsp;&nbsp;Price: ₹{{ item.price }}</p>
+
+        </div>
+
+        <form action="{{ url_for('customer_remove_from_cart', cart_id=item.cart_id) }}"
+
+              method="POST">
+
+            <button class="remove-btn">Remove</button>
+
+        </form>
+
+    </div>
+
+    {% endfor %}
+
+    <div class="cart-total">
+
+        <h2>Total: ₹{{ total }}</h2>
+
+        <a href="{{ url_for('customer_checkout') }}" class="checkout-btn">Proceed to Checkout</a>
+
+    </div>
+
+    {% else %}
+
+    <p class="restaurant-name">You have not inserted any item to cart</p>
+
+    {% endif %}
+
+</div>
+
+
+ 
+
+{% endblock %}
+
