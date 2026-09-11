@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+    <title>Add User</title>
+
+    <style>
+
+        body {
+
+            background-color: rgb(230, 213, 191);
+
+            font-family: Arial;
+
+            margin: 0;
+
+        }
+
+        .header {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            padding: 12px 25px;
+
+            color: white;
+
+            background-color: #0b7d3b;
+
+            box-sizing: border-box;
+
+        }
+
+        .header .brand { font-weight: bold; font-size: 1.2em; }
+
+        .header .right { display: flex; align-items: center; gap: 10px; }
+
+        .pill {
+
+            border: none;
+
+            border-radius: 20px;
+
+            padding: 6px 16px;
+
+            font-size: 0.85em;
+
+            font-weight: bold;
+
+            text-decoration: none;
+
+            cursor: pointer;
+
+        }
+
+        .pill-white { background: white; color: #0b7d3b; }
+
+        .pill-green { background: #3fae66; color: white; }
+
+        form.inline { margin: 0; }
+
+        .container { display: flex; justify-content: center; padding: 40px 20px; }
+
+        .card {
+
+            background: white;
+
+            padding: 35px 45px;
+
+            border-radius: 8px;
+
+            box-shadow: 0 0 10px gray;
+
+            width: 500px;
+
+        }
+
+        .card h2 {
+
+            text-align: center;
+
+            margin-top: 0;
+
+            margin-bottom: 10px;
+
+        }
+
+        .flash-msg {
+
+            color: #c0392b;
+
+            text-align: center;
+
+            font-size: 0.9em;
+
+            margin-bottom: 15px;
+
+        }
+
+        .row { display: flex; gap: 20px; margin-bottom: 18px; }
+
+        .field { flex: 1; }
+
+        label { font-weight: bold; font-size: 0.9em; }
+
+        input, select {
+
+            width: 100%;
+
+            padding: 8px;
+
+            margin-top: 5px;
+
+            box-sizing: border-box;
+
+            border: 1px solid #ccc;
+
+            border-radius: 4px;
+
+        }
+
+        small.hint {
+
+            display: block;
+
+            color: #777;
+
+            font-size: 0.75em;
+
+            margin-top: 3px;
+
+        }
+
+        .delivery-section {
+
+            border-top: 1px solid #ddd;
+
+            margin-top: 10px;
+
+            padding-top: 10px;
+
+        }
+
+        .delivery-section h4 { margin-bottom: 10px; }
+
+        .btn-group { text-align: center; margin-top: 20px; }
+
+        .btn-group button {
+
+            border: none;
+
+            border-radius: 4px;
+
+            padding: 8px 22px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            margin: 0 5px;
+
+        }
+
+        .save-btn { background: #0d3b26; color: white; }
+
+        .reset-btn { background: #eee; color: #333; }
+
+        .footer {
+
+            background-color: #0b7d3b;
+
+            color: white;
+
+            text-align: center;
+
+            padding: 10px;
+
+            width: 100%;
+
+            box-sizing: border-box;
+
+        }
+
+    </style>
+
+    <script>
+
+        function toggleDeliveryFields() {
+
+            var type = document.getElementById('user_type').value;
+
+            document.getElementById('deliverySection').style.display =
+
+                (type === 'Delivery_Person') ? 'block' : 'none';
+
+        }
+
+        window.addEventListener('DOMContentLoaded', function () {
+
+            var form = document.getElementById('addUserForm');
+
+            form.addEventListener('reset', function () {
+
+                setTimeout(toggleDeliveryFields, 0);
+
+            });
+
+            toggleDeliveryFields();
+
+        });
+
+    </script>
+
+</head>
+
+<body>
+
+    <div class="header">
+
+        <div class="brand">Infy Food Express</div>
+
+        <div class="right">
+
+            <span class="pill pill-white">Hi {{ admin_name }}</span>
+
+            <a href="{{ url_for('admin_dashboard') }}" class="pill pill-green">Home</a>
+
+            <form class="inline" action="{{ url_for('admin_logout') }}" method="POST">
+
+                <button type="submit" class="pill pill-green">Logout</button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+    <div class="container">
+
+        <div class="card">
+
+            <h2>Add User</h2>
+
+            {% with messages = get_flashed_messages() %}
+
+                {% if messages %}
+
+                    {% for message in messages %}
+
+                        <div class="flash-msg">{{ message }}</div>
+
+                    {% endfor %}
+
+                {% endif %}
+
+            {% endwith %}
+
+            <form action="{{ url_for('admin_add_user') }}" method="POST" id="addUserForm">
+
+                <div class="row">
+
+                    <div class="field">
+
+                        <label>Username</label>
+
+                        <input type="text" name="username" required>
+
+                        <small class="hint">Letters and spaces only, min 3 chars</small>
+
+                    </div>
+
+                    <div class="field">
+
+                        <label>Email</label>
+
+                        <input type="email" name="email" required>
+
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="field">
+
+                        <label>Password</label>
+
+                        <input type="password" name="password" required>
+
+                        <small class="hint">Min 6 chars, upper, lower, digit, special char</small>
+
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="field">
+
+                        <label>Phone</label>
+
+                        <input type="text" name="phone" maxlength="10" required>
+
+                        <small class="hint">10 digits, starts with 6-9</small>
+
+                    </div>
+
+                    <div class="field">
+
+                        <label>Type</label>
+
+                        <select name="user_type" id="user_type" onchange="toggleDeliveryFields()" required>
+
+                            <option value="Admin">Admin</option>
+
+                            <option value="Restaurant_Owner">Restaurant Owner</option>
+
+                            <option value="Delivery_Person">Delivery Person</option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="field">
+
+                        <label>Address</label>
+
+                        <input type="text" name="address" required>
+
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="field">
+
+                        <label>City</label>
+
+                        <input type="text" name="city" required>
+
+                    </div>
+
+                    <div class="field">
+
+                        <label>ZIP Code</label>
+
+                        <input type="text" name="zip_code" maxlength="6">
+
+                    </div>
+
+                </div>
+
+                <div class="delivery-section" id="deliverySection" style="display:none;">
+
+                    <h4>Delivery Details</h4>
+
+                    <div class="row">
+
+                        <div class="field">
+
+                            <label>Vehicle Type</label>
+
+                            <input type="text" name="vehicle_type">
+
+                        </div>
+
+                        <div class="field">
+
+                            <label>Vehicle Number</label>
+
+                            <input type="text" name="vehicle_number" placeholder="KA-01-AB-1234">
+
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+
+                        <div class="field">
+
+                            <label>License Number</label>
+
+                            <input type="text" name="license_number" placeholder="KA-01-2020-1234567">
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="btn-group">
+
+                    <button type="submit" class="save-btn">Add User</button>
+
+                    <button type="reset" class="reset-btn">Reset</button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+    <div class="footer">
+
+        Copyright &copy; 2026 Infy Food Express
+
+    </div>
+
+</body>
+
+</html>
