@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='delivery/order_updates.css') }}">
+
+    <title>Order Updates</title>
+</head>
+<div class="footer">
+    Copyright © 2026 Infy Food Express
+ </div>
+<body>
+
+    <div class="navbar">
+        <div class="logo">Infy Food Express</div>
+     
+        <div class="right-nav">
+            <span class="welcome">Hi {{ session['name'] }}</span>
+            <a href="/delivery/delivery_dashboard">Home</a>
+            <a href="/delivery/logout">Logout</a>
+        </div>
+     </div>
+     
+     <div class="top-menu">
+        <a href="/delivery/assigned_deliveries">Assigned Deliveries</a>
+     
+        <a href="/delivery/order_updates" class="active">
+            Order Updates
+        </a>
+     
+        <a href="/delivery/total_earnings">Total Earnings</a>
+     </div>
+<div class="container">
+
+    <h2>My Active Deliveries</h2>
+
+    {% with messages=get_flashed_messages(with_categories=true) %}
+
+    {% if messages %}
+
+        {% for category,message in messages %}
+
+            <div class="action-flash {{ category }}">
+
+                {{ message }}
+
+            </div>
+
+        {% endfor %}
+
+    {% endif %}
+
+    {% endwith %}
+
+    <table>
+
+        <tr>
+
+
+            <th>#</th>
+            <th>Order</th>
+            <th>Pickup (Restaurant)</th>
+            <th>Drop (Customer)</th>
+            <th>Amount</th>
+            <th>Payment</th>
+            <th>Status</th>
+            <th>Next Action</th>
+            
+
+        </tr>
+
+        {% for order in orders %}
+
+        <tr>
+
+            <td>{{ loop.index }}</td>
+
+            <td>{{ order[2] }}</td>
+
+            <td>{{ order[3] }}</td>
+
+            <td>{{ order[4] }}</td>
+
+            <td>₹{{ order[5] }}</td>
+
+            <td>{{ order[6] }}</td>
+
+            <td>{{ order[7] }}</td>
+
+            <td>
+
+                {% if order[7]|lower =="accepted" %}
+
+                <form action="/delivery/mark_picked/{{ order[0] }}" method="post" style="display:inline;">
+
+                    <button class="accept">Mark Picked</button>
+
+                </form>
+
+                <form action="/delivery/reject_assignment/{{ order[0] }}" method="post" style="display:inline;">
+
+                    <button class="reject">Reject</button>
+
+                </form>
+
+                {% elif order[7]|lower =="picked" %}
+
+                <form action="/delivery/mark_delivered/{{ order[0] }}" method="post">
+
+                    <button class="accept">Mark Delivered</button>
+
+                </form>
+
+                {% endif %}
+
+            </td>
+
+        </tr>
+
+        {% endfor %}
+
+    </table>
+
+    <h3 style="margin-top:35px;">Recent Activity</h3>
+
+    <table>
+
+        <tr>
+
+            <th>Order</th>
+
+             <th>Status</th>
+        </tr>
+
+        {% for order in orders %}
+
+        <tr>
+
+            <td>{{ order[2] }}</td>
+
+            <td>{{ order[7] }}</td>
+
+        </tr>
+
+        {% endfor %} 
+        {% for a in activities %}
+
+        <tr>
+
+            <td>{{ a[0] }}</td>
+
+            <td>{{ a[1] }}</td>
+
+
+        </tr>
+
+        {% endfor %} 
+
+       
+</body>
+
+</html>
+
+
+
+
+
+
+Copyright © 2026 Infy Food Express
+
+</footer>
+
+</body>
+
+</html>
+
+
