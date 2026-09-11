@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+    <title>Admin Dashboard</title>
+
+    <style>
+
+        body {
+
+            background-color:rgb(230, 213, 191);
+
+            font-family: Arial;
+
+            margin: 0;
+
+            overflow-x: hidden;
+
+        }
+
+        .header {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            padding: 14px 25px;
+
+            color: white;
+
+            background: linear-gradient(to right, #1e7e45, #3fae66);
+
+            width: 100%;
+
+            box-sizing: border-box;
+
+        }
+
+        .header .brand {
+
+            font-weight: bold;
+
+            font-size: 1.3em;
+
+        }
+
+        .header .right {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+        }
+
+        .index {
+
+            text-decoration: none;
+
+            background: white;
+
+            color: #333;
+
+            padding: 6px 16px;
+
+            border-radius: 20px;
+
+            white-space: nowrap;
+
+            font-size: 0.9em;
+
+        }
+
+        .logout-form {
+
+            margin: 0;
+
+        }
+
+        .logout-btn {
+
+            background: #6fc38a;
+
+            color: white;
+
+            border: none;
+
+            padding: 6px 16px;
+
+            border-radius: 20px;
+
+            cursor: pointer;
+
+            font-size: 0.9em;
+
+            white-space: nowrap;
+
+        }
+
+        .container {
+
+            width: 600px;
+
+            max-width: 90%;
+
+            margin: 60px auto 0;
+
+            text-align: center;
+
+        }
+
+        h2 {
+
+            text-align: center;
+
+            color: #222;
+
+        }
+
+        .footer {
+
+            background: linear-gradient(to right, #1e7e45, #3fae66);
+
+            color: white;
+
+            text-align: center;
+
+            padding: 10px;
+
+            position: fixed;
+
+            bottom: 0;
+
+            width: 100%;
+
+        }
+
+        .button-group {
+
+            justify-content: center;
+
+            display: flex;
+
+            gap: 20px;
+
+            margin-top: 30px;
+
+        }
+
+        .button-group a {
+
+            padding: 0 30px;
+
+            height: 45px;
+
+            border-radius: 25px;
+
+            cursor: pointer;
+
+            font-size: 15px;
+
+            font-weight: bold;
+
+            text-decoration: none;
+
+            color: #1a1a1a;
+
+            background: #6fc38a;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="header">
+
+        <div class="brand">Infy Food Express</div>
+
+        <div class="right">
+
+            <span class="index">Hi, {{ admin_name }}</span>
+
+            <form class="logout-form" action="{{ url_for('admin_logout') }}" method="POST">
+
+                <button type="submit" class="logout-btn">&#8646; Logout</button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+    <div class="container">
+
+        <h2>Admin Dashboard</h2>
+
+        <div class="button-group">
+
+            <a href="{{ url_for('admin_manage_users') }}">Users</a>
+
+            <a href="{{ url_for('admin_manage_restaurants') }}">Restaurants</a>
+
+            <a href="{{ url_for('admin_profile') }}">View Profile</a>
+
+        </div>
+
+    </div>
+
+    <div class="footer">
+
+        Copyright &copy; 2026 Infy Food Express
+
+    </div>
+
+</body>
+
+</html>
+
+
