@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Owner Dashboard</title>
+
+    <style>
+
+
+        *{
+
+            margin:0;
+
+            padding:0;
+
+            box-sizing:border-box;
+
+            font-family:Arial, Helvetica, sans-serif;
+
+        }
+        a {
+            text-decoration: none;
+            color: #f4f4f4;
+           
+            
+        }
+
+        body{
+
+            background:#f5f2dc;
+
+        }
+
+        header{
+
+            background:#2f8b57;
+
+            color:white;
+
+            display:flex;
+
+            justify-content:space-between;
+
+            align-items:center;
+
+            padding:12px 30px;
+
+        }
+
+        header h2{
+
+            font-size:22px;
+
+        }
+
+        .nav{
+
+            display:flex;
+
+            gap:10px;
+
+            align-items:center;
+
+        }
+
+        .btn{
+
+            text-decoration:none;
+
+            background:#3cb371;
+
+            color:white;
+
+            padding:6px 14px;
+
+            border-radius:20px;
+
+            font-size:14px;
+
+        }
+
+        h1{
+
+            text-align:center;
+
+            margin:40px 0 30px;
+
+            color:#333;
+
+        }
+
+        .container{
+
+            width:70%;
+
+            margin:auto;
+
+        }
+
+        table{
+
+            width:100%;
+
+            border-collapse:collapse;
+
+            background:white;
+
+            box-shadow:0 0 8px rgba(0,0,0,0.2);
+
+        }
+
+        th,td{
+
+            padding:15px;
+
+            text-align:center;
+            color:#2f8b57
+
+        }
+
+        th{
+
+            background:#f4f4f4;
+
+        }
+
+        .action-btn{
+
+            background:#3cb371;
+
+            color:white;
+
+            padding:6px 12px;
+
+            border:none;
+
+            border-radius:15px;
+
+            cursor:pointer;
+
+            margin:2px;
+
+        }
+
+        footer{
+
+            position:fixed;
+
+            bottom:0;
+
+            width:100%;
+
+            background:#2f8b57;
+
+            color:white;
+
+            text-align:center;
+
+            padding:10px;
+
+        }
+        
+
+    </style>
+
+</head>
+
+<body>
+
+<header>
+
+    <h2>Infy Food Express</h2>
+
+    <div class="nav">
+
+        <span>Hi {{ session['username'] }}</span>
+
+        <div class="logout">
+                    <a href="{{ url_for('owner_logout')}}">Logout</a>
+                    </div>
+
+    </div>
+
+</header>
+
+<h1>Owner Dashboard</h1>
+
+<div class="container">
+
+<table>
+
+    <tr>
+
+        <th>Name</th>
+
+        <th>Cuisine</th>
+
+        <th>City</th>
+
+        <th>Manage</th>
+
+    </tr>
+    <tr>
+
+        <td>{{ name }}</td>
+
+        <td>{{ cuisine_type }}</td>
+
+        <td>{{ city }}</td>
+        
+       
+
+        <td>
+
+            <a href="{{ url_for('owner_category_list',restaurant_id=restaurant_id ) }}">
+
+                <button class="action-btn">Categories</button>
+
+            </a>
+
+            <a href="{{ url_for('owner_items',restaurant_id=restaurant_id ) }}">
+
+                <button class="action-btn">Items</button>
+
+            </a>
+
+            <a href="{{ url_for('owner_orders',restaurant_id=restaurant_id ) }}">
+
+                <button class="action-btn">Orders</button>
+
+            </a>
+
+        </td>
+
+    </tr>
+
+  
+
+</table>
+
+</div>
+
+
+<footer>
+
+    Copyright © 2026 Infy Food Express
+
+</footer>
+
+</body>
+
+</html>
+            </td>
+
+        </tr>
+
+        {% endfor %}
+
+    </table>
+
+</div>
+
+<div class="footer">
+    Copyright © 2026 Infy Food Express
+</div>
+
+</body>
+
+</html><!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Owner Dashboard</title>
+
+    <style>
+
+
+        *{
+
+            margin:0;
+
+            padding:0;
+
+            box-sizing:border-box;
+
+            font-family:Arial, Helvetica, sans-serif;
+
+        }
+        a {
+            text-decoration: none;
+            color: #f4f4f4;
+           
+            
+        }
+
+        body{
+
+            background:#f5f2dc;
+
+        }
+
+        header{
+
+            background:#2f8b57;
+
+            color:white;
+
+            display:flex;
+
+            justify-content:space-between;
+
+            align-items:center;
+
+            padding:12px 30px;
+
+        }
+
+        header h2{
+
+            font-size:22px;
+
+        }
+
+        .nav{
+
+            display:flex;
+
+            gap:10px;
+
+            align-items:center;
+
+        }
+
+        .btn{
+
+            text-decoration:none;
+
+            background:#3cb371;
+
+            color:white;
+
+            padding:6px 14px;
+
+            border-radius:20px;
+
+            font-size:14px;
+
+        }
+
+        h1{
+
+            text-align:center;
+
+            margin:40px 0 30px;
+
+            color:#333;
+
+        }
+
+        .container{
+
+            width:70%;
+
+            margin:auto;
+
+        }
+
+        table{
+
+            width:100%;
+
+            border-collapse:collapse;
+
+            background:white;
+
+            box-shadow:0 0 8px rgba(0,0,0,0.2);
+
+        }
+
+        th,td{
+
+            padding:15px;
+
+            text-align:center;
+            color:#2f8b57
+
+        }
+
+        th{
+
+            background:#f4f4f4;
+
+        }
+
+        .action-btn{
+
+            background:#3cb371;
+
+            color:white;
+
+            padding:6px 12px;
+
+            border:none;
+
+            border-radius:15px;
+
+            cursor:pointer;
+
+            margin:2px;
+
+        }
+
+        footer{
+
+            position:fixed;
+
+            bottom:0;
+
+            width:100%;
+
+            background:#2f8b57;
+
+            color:white;
+
+            text-align:center;
+
+            padding:10px;
+
+        }
+        
+
+    </style>
+
+</head>
+
+<body>
+
+<header>
+
+    <h2>Infy Food Express</h2>
+
+    <div class="nav">
+
+        <span>Hi {{ session['username'] }}</span>
+
+        <div class="logout">
+                    <a href="{{ url_for('owner_logout')}}">Logout</a>
+                    </div>
+
+    </div>
+
+</header>
+
+<h1>Owner Dashboard</h1>
+
+<div class="container">
+
+<table>
+
+    <tr>
+
+        <th>Name</th>
+
+        <th>Cuisine</th>
+
+        <th>City</th>
+
+        <th>Manage</th>
+
+    </tr>
+    <tr>
+
+        <td>{{ name }}</td>
+
+        <td>{{ cuisine_type }}</td>
+
+        <td>{{ city }}</td>
+        
+       
+
+        <td>
+
+            <a href="{{ url_for('owner_category_list',restaurant_id=restaurant_id ) }}">
+
+                <button class="action-btn">Categories</button>
+
+            </a>
+
+            <a href="{{ url_for('owner_items',restaurant_id=restaurant_id ) }}">
+
+                <button class="action-btn">Items</button>
+
+            </a>
+
+            <a href="{{ url_for('owner_orders',restaurant_id=restaurant_id ) }}">
+
+                <button class="action-btn">Orders</button>
+
+            </a>
+
+        </td>
+
+    </tr>
+
+  
+
+</table>
+
+</div>
+
+
+<footer>
+
+    Copyright © 2026 Infy Food Express
+
+</footer>
+
+</body>
+
+</html>
