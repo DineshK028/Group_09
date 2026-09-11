@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='delivery/assigned_deliveries.css') }}">
+
+    <title>Assigned Deliveries</title>
+
+   
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="navbar">
+
+        <div class="logo">
+
+            Infy Food Express
+
+        </div>
+
+        <div class="right-nav">
+
+            <span class="welcome">
+
+                Hi {{ session['name'] }}
+
+            </span>
+
+            <a href="/delivery/delivery_dashboard">
+
+                Home
+
+            </a>
+
+            <a href="/delivery/logout">
+
+                Logout
+
+            </a>
+
+        </div>
+
+    </div>
+
+    <div class="top-menu">
+
+        <a href="/delivery/assigned_deliveries" class="active">
+
+            Assigned Deliveries
+
+        </a>
+
+        <a href="/delivery/order_updates">
+
+            Order Updates
+
+        </a>
+
+        <a href="/delivery/total_earnings">
+
+            Total Earnings
+
+        </a>
+
+    </div>
+
+    <div class="content">
+
+        <h2>Available for Pick-up</h2>
+    
+        {% with messages = get_flashed_messages(with_categories=true) %}
+    
+            {% if messages %}
+    
+                {% for category, message in messages %}
+    
+                    <div class="action-flash {{ category }}">
+    
+                        {{ message }}
+    
+                    </div>
+    
+                {% endfor %}
+    
+            {% endif %}
+    
+        {% endwith %}
+    
+        <table>
+    
+            <tr>
+    
+                <th>#</th>
+    
+                <th>Order</th>
+    
+                <th>Pickup (Restaurant)</th>
+    
+                <th>Drop (Customer)</th>
+    
+                <th>Amount</th>
+    
+                <th>Payment</th>
+    
+                <th>Actions</th>
+    
+            </tr>
+    
+            {% for order in orders %}
+    
+            <tr>
+    
+                <td>{{ loop.index }}</td>
+    
+                <td>{{ order[1] }}</td>
+    
+                <td>
+    
+                    {{ order[2] }}<br>
+    
+                    {{ order[3] }}
+    
+                </td>
+    
+                <td>{{ order[4] }}</td>
+    
+                <td>₹{{ order[5] }}</td>
+    
+                <td>{{ order[6] }}</td>
+    
+                <td>
+    
+                    <form action="/delivery/confirm_pickup/{{ order[0] }}" method="get" style="margin-bottom:8px;">
+    
+                        <button type="submit" class="accept">
+    
+                            Accept Pick-up
+    
+                        </button>
+    
+                    </form>
+    
+                    <form action="/delivery/reject_pickup/{{ order[0] }}" method="post">
+    
+                        <button type="submit" class="reject">
+    
+                            Reject Pick-up
+    
+                        </button>
+    
+                    </form>
+    
+                </td>
+    
+            </tr>
+    
+            {% endfor %}
+    
+        </table>
+    
+    </div>
+    <div class="footer">
+
+        Copyright © 2026 Infy Food Express
+
+    </div>
+
+</div>
+
+</body>
+
+</html>    
