@@ -1,5 +1,8 @@
 flask
 flask_mysqldb
 flask_wtf
+Flask
+gunicorn
+
 
 
