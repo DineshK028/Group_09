@@ -107,9 +107,7 @@ Food_Express/
 
 ## 🚀 Live Demo
 
-🔗 **[Open Food Express](https://group-09.onrender.com)**
-
-> 💡 The application is hosted on Render. Free hosting instances may take a short time to wake up after inactivity.
+> 💡 The application is hosted on Render. may take a short time to wake up after inactivity.
 
 ---
 
@@ -204,7 +202,6 @@ Food Express uses MySQL/MariaDB and includes tables for:
 🛍️ cart_items
 📦 orders
 📋 order_items
-💳 payments
 🛵 delivery_persons
 📍 delivery_assignments
 📝 delivery_events
@@ -248,57 +245,6 @@ The deployed application uses **Aiven MySQL** as the cloud database.
 The database connection should use environment variables for the Aiven host, port, username, password, and database name.
 
 🔒 Aiven MySQL may require SSL, so the production connection must be configured according to the Aiven service's SSL requirements.
-
----
-
-## 🔒 Security
-
-> ⚠️ **Important**
-
-- 🔑 Never commit database passwords to GitHub.
-- 🔐 Never commit production secret keys.
-- 📄 Keep SQL dumps containing credentials private.
-- 🌱 Use environment variables for production configuration.
-- 🔒 Use properly hashed passwords for production authentication.
-- 🚫 Never expose database credentials in screenshots or public repositories.
-
----
-
-## 🐞 Troubleshooting
-
-### ❌ `NameError: name 'render_template' is not defined`
-
-Make sure `app.py` contains:
-
-```python
-from flask import Flask, render_template
-```
-
-### ❌ MySQL Connection Error
-
-Check:
-
-- ✅ Database service is running
-- ✅ Host is correct
-- ✅ Port is correct
-- ✅ Username is correct
-- ✅ Password is correct
-- ✅ Database name is correct
-- ✅ SSL configuration matches the cloud database
-
-### ❌ Render Returns HTTP 500
-
-Open the **Render application logs** and check the Python traceback.
-
-The first application-level error in the traceback is usually the best place to start debugging.
-
----
-
-## 📌 Project Status
-
-🟢 **Active Development**
-
-Food Express is a modular Flask food delivery application designed for local development with XAMPP and cloud deployment using Render + Aiven MySQL.
 
 ---
 
