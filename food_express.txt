@@ -1,0 +1,449 @@
+drop database if exists food_express;
+
+create database food_express;
+
+use food_express;
+
+#--------------1-6-----------------
+CREATE TABLE users(
+user_id INT AUTO_INCREMENT PRIMARY KEY,
+username VARCHAR(50) NOT NULL,
+email VARCHAR(100) NOT NULL UNIQUE,
+password_hash VARCHAR(255) NOT NULL,
+phone VARCHAR(15) NOT NULL UNIQUE,
+user_type ENUM('Customer','Restaurant_Owner','Admin','Delivery_Person') DEFAULT 'Customer',
+address TEXT NOT NULL,
+city VARCHAR(50) NOT NULL,
+zip_code VARCHAR(20) NOT NULL);
+
+CREATE TABLE restaurants(
+restaurant_id INT AUTO_INCREMENT PRIMARY KEY, 
+owner_id INT,
+name VARCHAR(100) NOT NULL,
+cuisine_type VARCHAR(50) NOT NULL,
+address TEXT NOT NULL,
+city VARCHAR(50) NOT NULL,
+zip_code VARCHAR(20),
+contact_phone VARCHAR(15) NOT NULL,
+contact_email VARCHAR(50) NOT NULL UNIQUE,
+opening_time TIME DEFAULT '10:00:00',
+closing_time TIME DEFAULT '22:00:00',
+is_open BOOLEAN DEFAULT TRUE,
+delivery_fee DECIMAL(6,2) DEFAULT 15.00,
+minimum_order DECIMAL(6,2) DEFAULT 100.00,
+rating DECIMAL(3,2) DEFAULT 0.0,
+foreign key(owner_id) references users(user_id) ON DELETE CASCADE);
+
+CREATE TABLE menu_categories(
+category_id INT AUTO_INCREMENT PRIMARY KEY,
+restaurant_id INT,
+name VARCHAR(50) NOT NULL,
+description TEXT,
+foreign key(restaurant_id) references restaurants(restaurant_id) ON DELETE CASCADE
+
+);
+
+CREATE TABLE menu_items(
+item_id INT PRIMARY KEY AUTO_INCREMENT,
+restaurant_id INT,
+category_id INT,
+name VARCHAR(100) NOT NULL,
+description TEXT NOT NULL,
+price DECIMAL(6,2) NOT NULL,
+quantity INT NOT NULL,
+discount_price DECIMAL(6,2),
+ingredients TEXT NOT NULL,
+is_vegetarian BOOLEAN DEFAULT FALSE,
+is_spicy BOOLEAN DEFAULT FALSE,
+is_available BOOLEAN DEFAULT TRUE,
+preparation_time INT,
+rating DECIMAL(3,2) DEFAULT 0.0,
+total_orders INT DEFAULT 0,
+foreign key(restaurant_id) references restaurants(restaurant_id) ON DELETE CASCADE,
+foreign key(category_id) references menu_categories(category_id) ON DELETE SET NULL);
+
+CREATE TABLE orders(
+order_id INT PRIMARY KEY AUTO_INCREMENT,
+user_id INT,
+restaurant_id INT,
+delivery_person_id INT,
+order_number VARCHAR(20) NOT NULL UNIQUE,
+total_amount DECIMAL(8,2) NOT NULL,
+discount_amount DECIMAL(6,2) DEFAULT 0.00,
+final_amount DECIMAL(8,2) NOT NULL, 
+delivery_address TEXT NOT NULL, 
+delivery_instruction TEXT, 
+payment_method ENUM('credit_card','debit_card','COD','wallet') DEFAULT 'credit_card',
+payment_status ENUM('pending','paid','failed','refunded') DEFAULT 'pending',
+order_status ENUM('pending','accepted','out_for_delivery','delivered','c
+ancelled') NOT NULL DEFAULT 'pending',
+estimated_delivery_time datetime,  
+actual_delivery_time datetime,  
+decline_reason VARCHAR(255),  
+picked_up_at DATETIME, 
+delivered_at DATETIME, 
+delivery_otp VARCHAR(6) , 
+pod_photo VARCHAR(255),
+foreign key(user_id) references users(user_id) ON 
+DELETE CASCADE,
+foreign key(restaurant_id) references restaurants(restaurant_id) ON 
+DELETE CASCADE,
+foreign key(delivery_person_id ) references users(user_id) ON 
+DELETE SET NULL);
+
+
+CREATE TABLE order_items(
+order_item_id INT PRIMARY KEY AUTO_INCREMENT, 
+order_id INT, 
+item_id INT,
+quantity INT NOT NULL DEFAULT 1, 
+unit_price DECIMAL(6,2) NOT NULL,
+item_total DECIMAL(10,2),
+foreign key(order_id) references orders(order_id) ON 
+DELETE CASCADE,
+foreign key(item_id) references menu_items(item_id) ON 
+DELETE SET NULL);
+
+#------------7-9-----------------
+CREATE TABLE cart (
+  cart_id INT AUTO_INCREMENT,
+  user_id INT,
+  restaurant_id INT,
+  PRIMARY KEY (cart_id),
+  UNIQUE KEY uk_user_id (user_id),
+  FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
+  FOREIGN KEY (restaurant_id) REFERENCES restaurants(restaurant_id) ON DELETE SET NULL
+);
+
+CREATE TABLE cart_items (
+  cart_item_id INT AUTO_INCREMENT,
+  cart_id INT,
+  item_id INT,
+  quantity INT NOT NULL DEFAULT 1,
+  PRIMARY KEY (cart_item_id),
+  UNIQUE KEY uk_cart_item (cart_id, item_id),
+  FOREIGN KEY (cart_id) REFERENCES cart(cart_id) ON DELETE CASCADE,
+  FOREIGN KEY (item_id) REFERENCES menu_items(item_id) ON DELETE CASCADE
+);
+
+CREATE TABLE payments (
+  payment_id INT AUTO_INCREMENT,
+  order_id INT,
+  transaction_id VARCHAR(100),
+  payment_method ENUM('credit_card','debit_card','COD','wallet'),
+
+
+  amount DECIMAL(8,2) NOT NULL,
+  payment_status ENUM('pending','completed','failed','refunded') DEFAULT 'pending',
+  payment_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  gateway_response TEXT,
+  PRIMARY KEY (payment_id),
+  UNIQUE KEY uk_transaction_id (transaction_id),
+  FOREIGN KEY (order_id) REFERENCES orders(order_id)  ON DELETE CASCADE
+);
+#---------------10-12-------------------------------------------
+CREATE TABLE delivery_persons(
+delivery_id INT auto_increment primary key,
+user_id INT UNIQUE,
+vehicle_type VARCHAR(50),
+vehicle_number VARCHAR(50),
+license_number VARCHAR(50),
+rating DECIMAL(3,2) DEFAULT 0.0,
+total_deliveries INT DEFAULT 0,
+total_earnings DECIMAL(10,2) DEFAULT 0.00,
+availability ENUM('available','on_break','offline') DEFAULT 'available',
+foreign key (user_id) references users(user_id) on delete cascade);
+
+CREATE TABLE delivery_events (
+id INT auto_increment primary key,
+order_id INT,
+delivery_person_id int,
+event_type  VARCHAR(50) not null,
+event_time DATETIME NOT null default now() ,
+meta JSON,
+foreign key (order_id) references orders(order_id) on delete cascade,
+foreign key (delivery_person_id) references users(user_id) on delete cascade
+);
+
+CREATE TABLE delivery_assignments  (
+assignment_id INT auto_increment primary key,
+order_id INT,
+delivery_user_id int,
+status  VARCHAR(20) NOT NULL DEFAULT 'accepted' ,
+assigned_at DATETIME NOT null default CURRENT_TIMESTAMP ,
+accepted_at DATETIME,
+picked_at DATETIME,
+delivered_at DATETIME,
+rejected_at  DATETIME,
+notes varchar(255),
+foreign key (order_id) references orders(order_id) on delete cascade,
+foreign key (delivery_user_id) references users(user_id) on delete cascade
+);
+
+-- Data for USER Table
+
+insert into users(username,email,password_hash,phone,user_type,address,city,zip_code)
+ values('Pallavi','pallavi@infy.com','Pallavi@456','9876543210','Customer','14 MG Road','Bengaluru','560015'),
+('Lavanya','lavanya@infy.com','Lavanya@123','9876512345','Customer','48 MG Road','Bengaluru','560234'),
+('Mahesh R','mahesh@infy.com','Mahesh@345','9876987600','Restaurant_Owner','45 Park Street','Kolkata','700016'),
+('Shiksha','shiksha@infy.com','Shiksha@123','8867251052','Delivery_Person','163 Manglore','Udupi','560234'),
+('Rohit Sharma','rohit@infy.com','12345hello','9876544444','Restaurant_Owner','22 Civil Lines','Bengaluru','560013'),
+('Vikas A','vikas@infy.com','12ab12','9876522222','Restaurant_Owner','22 GM Road','Lucknow','226022'),
+('Arjun Patel','arjun@infy.com','hello54321','9876511111','Restaurant_Owner','13 Laxmi Road','Ahemdabad','300980'),
+('Anil Kumar','anil.admin@infy.com','admin123','9000000001','Admin','101 Admin Block','Bengaluru','560001'),
+('Priya Singh','priya.admin@infy.com','admin456','9000000002','Admin','202 Admin Block','Mumbai','400001'),
+('Ramesh Gupta','ramesh.admin@infy.com','admin789','9000000003','Admin','303 Admin Block','Delhi','110001'),
+('Amit Verma','amit.delivery@infy.com','del123','9111111111','Delivery_Person','12 Delivery Lane','Bengaluru','560002'),
+('Neha Kapoor','neha.delivery@infy.com','del456','9222222222','Delivery_Person','34 Delivery Lane','Mumbai','400002'),
+('Rajesh Yadav','rajesh.delivery@infy.com','del789','9333333333','Delivery_Person','56 Delivery Lane','Delhi','110002');
+
+
+--  Data for Restaurants
+
+INSERT INTO restaurants (
+   owner_id, name, cuisine_type, address, city, zip_code, contact_phone, contact_email,
+   opening_time, closing_time, is_open, delivery_fee, minimum_order, rating
+) VALUES
+(4, 'Kings gardenia', 'Indian', '22 Civil Lines', 'Bengaluru', '560013', '9876544444', 'kingsgardenia@food.com', '10:00:00', '22:00:00', TRUE, 20.00, 150.00, 4.5),
+(5, 'RRR Restaurant', 'Mughlai', '44 GM Road', 'Mysore', '226022', '9876522222', 'rrrrestaurant@food.com', '11:00:00', '23:00:00', TRUE, 25.00, 200.00, 4.2),
+(3, 'Nandhana Palace', 'North Indian', '13 Laxmi Road', 'Chennai', '300980', '9876511111', 'nandhanapalace@food.com', '09:30:00', '21:30:00', TRUE, 15.00, 120.00, 4.0);
+
+
+-- Data for menu_categories
+
+INSERT INTO menu_categories (restaurant_id, name, description) VALUES
+-- Kings Gardenia (Indian)
+(1, 'Starters', 'A variety of Indian appetizers including samosas, pakoras, and kebabs.'),
+(1, 'Main Course', 'Traditional Indian curries, biryanis, and tandoori dishes.'),
+(1, 'Desserts', 'Indian sweets like gulab jamun, rasmalai, and kheer.'),
+(1, 'Beverages', 'Fresh juices, lassi, masala chai, and soft drinks.'),
+
+-- RRR Restaurant (Mughlai)
+(2, 'Starters', 'Mughlai kebabs, tikkas, and shami kebabs.'),
+(2, 'Main Course', 'Rich Mughlai curries, biryanis, and koftas.'),
+(2, 'Breads', 'Variety of naan, paratha, and roomali roti.'),
+(2, 'Desserts', 'Shahi tukda, phirni, and kulfi.'),
+
+-- Nandhana Palace (North Indian)
+(3, 'Starters', 'Paneer tikka, hara bhara kebab, and tandoori mushrooms.'),
+(3, 'Main Course', 'North Indian curries, dal makhani, and butter chicken.'),
+(3, 'Breads', 'Tandoori roti, butter naan, and missi roti.'),
+(3, 'Beverages', 'Sweet lassi, salted lassi, and masala chai.');
+
+
+
+--  Data for menu_items
+
+
+INSERT INTO menu_items (
+   restaurant_id, category_id, name, description, price, quantity, discount_price,
+   ingredients, is_vegetarian, is_spicy, is_available, preparation_time, rating, total_orders
+) VALUES
+-- Kings Gardenia (Indian) - restaurant_id = 1
+(1, 1, 'Paneer Tikka', 'Grilled cottage cheese cubes marinated in Indian spices.', 180.00, 50, 150.00,
+'Paneer, yogurt, spices', TRUE, TRUE, TRUE, 20, 4.5, 120),
+(1, 2, 'Chicken Biryani', 'Fragrant basmati rice cooked with chicken and spices.', 250.00, 40, 220.00,
+'Chicken, rice, spices', FALSE, TRUE, TRUE, 30, 4.7, 200),
+(1, 3, 'Gulab Jamun', 'Soft fried dumplings soaked in sugar syrup.', 90.00, 60, NULL,
+'Milk solids, sugar, cardamom', TRUE, FALSE, TRUE, 10, 4.6, 150),
+(1, 4, 'Masala Chai', 'Traditional Indian spiced tea.', 40.00, 100, NULL,
+'Tea leaves, milk, spices', TRUE, TRUE, TRUE, 5, 4.4, 300),
+
+-- RRR Restaurant (Mughlai) - restaurant_id = 2
+(2, 5, 'Galouti Kebab', 'Melt-in-mouth minced meat kebabs.', 220.00, 30, 200.00,
+'Minced meat, spices', FALSE, TRUE, TRUE, 25, 4.8, 180),
+(2, 6, 'Mutton Rogan Josh', 'Slow-cooked mutton curry with aromatic spices.', 300.00, 25, NULL,
+'Mutton, spices, yogurt', FALSE, TRUE, TRUE, 35, 4.7, 140),
+(2, 7, 'Butter Naan', 'Soft leavened bread with butter.', 50.00, 80, NULL,
+'Flour, butter, yeast', TRUE, FALSE, TRUE, 8, 4.5, 250),
+(2, 8, 'Shahi Tukda', 'Rich bread pudding with saffron milk.', 120.00, 40, NULL,
+'Bread, milk, sugar, saffron', TRUE, FALSE, TRUE, 15, 4.6, 100),
+
+-- Nandhana Palace (North Indian) - restaurant_id = 3
+(3, 9, 'Hara Bhara Kebab', 'Spinach and green pea patties.', 150.00, 40, 130.00,
+'Spinach, peas, spices', TRUE, FALSE, TRUE, 15, 4.4, 110),
+(3, 10, 'Butter Chicken', 'Creamy tomato-based chicken curry.', 280.00, 35, 250.00,
+'Chicken, cream, tomatoes, spices', FALSE, FALSE, TRUE, 25, 4.8, 210),
+(3, 11, 'Tandoori Roti', 'Whole wheat flatbread cooked in tandoor.', 30.00, 100, NULL,
+'Whole wheat flour, water, salt', TRUE, FALSE, TRUE, 5, 4.3, 300),
+(3, 12, 'Sweet Lassi', 'Sweetened yogurt drink.', 60.00, 70, NULL,
+'Yogurt, sugar, cardamom', TRUE, FALSE, TRUE, 5, 4.5, 180);
+
+
+
+--  data for orders
+
+INSERT INTO orders (
+   user_id, restaurant_id, delivery_person_id, order_number, total_amount, discount_amount, final_amount,
+   delivery_address, delivery_instruction, payment_method, payment_status, order_status,
+   estimated_delivery_time, actual_delivery_time, decline_reason, picked_up_at, delivered_at, delivery_otp, pod_photo
+) VALUES
+-- Order 1: Delivered
+(1, 1, 10, 'ORD1001', 500.00, 50.00, 450.00,
+'12 MG Road, Bengaluru, 560015', 'Leave at the door', 'credit_card', 'paid', 'delivered',
+'2026-07-09 13:00:00', '2026-07-09 13:20:00', NULL, '2026-07-09 12:50:00', '2026-07-09 13:20:00', '123456', 'pod1.jpg'),
+
+-- Order 2: Out for delivery
+(2, 2, 11, 'ORD1002', 750.00, 0.00, 750.00,
+'45 MG Road, Bengaluru, 560234', 'Call on arrival', 'COD', 'pending', 'out_for_delivery',
+'2026-07-09 14:00:00', NULL, NULL, '2026-07-09 13:40:00', NULL, '654321', NULL),
+
+-- Order 3: Preparing
+(3, 3, 12, 'ORD1003', 320.00, 20.00, 300.00,
+'45 Park Street, Kolkata, 700016', 'Ring the bell twice', 'wallet', 'paid', 'pending',
+'2026-07-09 14:30:00', NULL, NULL, NULL, NULL, '789012', NULL),
+
+-- Order 4: Cancelled
+(1, 2, NULL, 'ORD1004', 600.00, 0.00, 600.00,
+'12 MG Road, Bengaluru, 560015', 'No onions please', 'debit_card', 'refunded', 'cancelled',
+NULL, NULL, 'Customer requested cancellation', NULL, NULL, NULL, NULL),
+
+-- Order 5: Confirmed
+(2, 1, NULL, 'ORD1005', 450.00, 30.00, 420.00,
+'45 MG Road, Bengaluru, 560234', 'Extra spicy', 'credit_card', 'paid', 'accepted',
+'2026-07-09 15:00:00', NULL, NULL, NULL, NULL, '345678', NULL);
+
+
+
+
+-- data for order_items
+
+
+INSERT INTO order_items (order_id, item_id, quantity, unit_price) VALUES
+
+(1, 1, 2, 180.00), -- Paneer Tikka x2
+(1, 2, 1, 250.00), -- Chicken Biryani x1
+(1, 3, 3, 90.00), -- Gulab Jamun x3
+
+
+(2, 5, 2, 220.00), -- Galouti Kebab x2
+(2, 6, 1, 300.00), -- Mutton Rogan Josh x1
+(2, 7, 4, 50.00), -- Butter Naan x4
+
+
+(3, 9, 1, 150.00), -- Hara Bhara Kebab x1
+(3, 10, 1, 280.00), -- Butter Chicken x1
+(3, 11, 3, 30.00), -- Tandoori Roti x3
+(3, 12, 2, 60.00), -- Sweet Lassi x2
+
+
+(4, 5, 1, 220.00), -- Galouti Kebab x1
+(4, 8, 2, 120.00), -- Shahi Tukda x2
+
+
+(5, 1, 1, 180.00), -- Paneer Tikka x1
+(5, 4, 2, 40.00); -- Masala Chai x2
+
+-- data for cart
+
+
+INSERT INTO cart (user_id, restaurant_id) VALUES
+(1, 1),
+(2, 2), 
+(3, 3); 
+
+
+--  data for cart_items
+
+INSERT INTO cart_items (cart_id, item_id, quantity) VALUES
+
+(1, 1, 2), -- Paneer Tikka x2
+(1, 2, 1), -- Chicken Biryani x1
+(1, 3, 3), -- Gulab Jamun x3
+
+
+(2, 5, 1), -- Galouti Kebab x1
+(2, 6, 1), -- Mutton Rogan Josh x1
+(2, 7, 4), -- Butter Naan x4
+
+
+(3, 9, 1), -- Hara Bhara Kebab x1
+(3, 10, 1), -- Butter Chicken x1
+(3, 12, 2); -- Sweet Lassi x2
+
+
+
+-- data for payments
+
+
+INSERT INTO payments (
+   order_id, transaction_id, payment_method, amount, payment_status, gateway_response
+) VALUES
+-- Order 1: Paid via credit card
+(1, 'TXN1001CC', 'credit_card', 450.00, 'completed',
+'{"status":"success","auth_code":"AUTH123","message":"Payment approved"}'),
+
+-- Order 2: COD (pending payment)
+(2, 'TXN1002COD', 'COD', 750.00, 'pending',
+'{"status":"pending","message":"Cash to be collected on delivery"}'),
+
+-- Order 3: Paid via wallet
+(3, 'TXN1003WAL', 'wallet', 300.00, 'completed',
+'{"status":"success","wallet_id":"WALLET567","message":"Wallet payment successful"}'),
+
+-- Order 4: Refunded debit card payment
+(4, 'TXN1004DC', 'debit_card', 600.00, 'refunded',
+'{"status":"refunded","refund_id":"REF123","message":"Amount refunded to card"}'),
+
+-- Order 5: Paid via credit card
+(5, 'TXN1005CC', 'credit_card', 420.00, 'completed',
+'{"status":"success","auth_code":"AUTH789","message":"Payment approved"}');
+
+
+-- data for delivery_persons
+
+INSERT INTO delivery_persons (
+   user_id, vehicle_type, vehicle_number, license_number, rating, total_deliveries, total_earnings, availability
+) VALUES
+(10, 'Motorbike', 'KA05AB1234', 'LICKA123456', 4.7, 320, 158000.00, 'available'),
+(11, 'Scooter', 'MH12XY9876', 'LICMH987654', 4.5, 210, 102500.00, 'on_break'),
+(12, 'Bicycle', 'DL01BC4321', 'LICDL456789', 4.3, 150, 75000.00, 'offline');
+
+
+--  data for delivery_events
+
+
+INSERT INTO delivery_events (order_id, delivery_person_id, event_type, event_time, meta) VALUES
+-- Order 1: Delivered
+(1, 10, 'assigned', '2026-07-09 12:30:00', JSON_OBJECT('note', 'Delivery assigned to Amit Verma')),
+(1, 10, 'picked_up', '2026-07-09 12:50:00', JSON_OBJECT('location', 'Spice Garden')),
+(1, 10, 'out_for_delivery', '2026-07-09 13:00:00', JSON_OBJECT('location', 'MG Road')),
+(1, 10, 'delivered', '2026-07-09 13:20:00', JSON_OBJECT('otp_verified', true)),
+
+-- Order 2: Out for delivery
+(2, 11, 'assigned', '2026-07-09 13:20:00', JSON_OBJECT('note', 'Delivery assigned to Neha Kapoor')),
+(2, 11, 'picked_up', '2026-07-09 13:40:00', JSON_OBJECT('location', 'Lucknowi Zaika')),
+(2, 11, 'out_for_delivery', '2026-07-09 14:00:00', JSON_OBJECT('location', 'MG Road')),
+
+-- Order 3: Preparing (assigned but not picked up yet)
+(3, 12, 'assigned', '2026-07-09 13:50:00', JSON_OBJECT('note', 'Delivery assigned to Rajesh Yadav')),
+
+-- Order 4: Cancelled before assignment
+(4, NULL, 'cancelled', '2026-07-09 12:45:00', JSON_OBJECT('reason', 'Customer requested cancellation')),
+
+-- Order 5: Confirmed but not yet assigned
+(5, NULL, 'order_confirmed', '2026-07-09 14:10:00', JSON_OBJECT('note', 'Awaiting delivery assignment'));
+
+
+--  Data for delivey_assignments
+
+INSERT INTO delivery_assignments (
+   order_id, delivery_user_id, status, assigned_at, accepted_at, picked_at, delivered_at, rejected_at, notes
+) VALUES
+-- Order 1: Delivered
+(1, 10, 'delivered', '2026-07-09 12:30:00', '2026-07-09 12:32:00', '2026-07-09 12:50:00', '2026-07-09 13:20:00', NULL,
+'Delivered successfully, OTP verified'),
+
+-- Order 2: Picked up, out for delivery
+(2, 11, 'picked', '2026-07-09 13:20:00', '2026-07-09 13:22:00', '2026-07-09 13:40:00', NULL, NULL,
+'Customer prefers contactless delivery'),
+
+-- Order 3: Accepted but not yet picked
+(3, 12, 'accepted', '2026-07-09 13:50:00', '2026-07-09 13:52:00', NULL, NULL, NULL,
+'Restaurant still preparing order'),
+
+
+
+-- Order 5: Assigned but awaiting acceptance
+(5, 11, 'assigned', '2026-07-09 14:10:00', NULL, NULL, NULL, NULL,
+'Awaiting delivery person confirmation');
