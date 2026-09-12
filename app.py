@@ -18,6 +18,8 @@ mysql.init_app(app)
 
 
 
+
+
 import admin_module.admin_routes as admin
 
 import owner_module.app  as owner
