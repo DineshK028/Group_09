@@ -1,13 +1,19 @@
-from flask import Flask, render_template
-from database import mysql
+import os
+from flask import Flask
+from flask_mysqldb import MySQL
 
+mysql = MySQL()
 
 app = Flask(__name__)
-app.secret_key = "secret key!!!!"
-app.config['MYSQL_HOST'] = 'localhost'
-app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = ''
-app.config['MYSQL_DB'] = 'food_express'
+
+app.secret_key = os.environ.get("SECRET_KEY", "local-dev-secret")
+
+app.config["MYSQL_HOST"] = os.environ.get("MYSQL_HOST", "localhost")
+app.config["MYSQL_PORT"] = int(os.environ.get("MYSQL_PORT", 3306))
+app.config["MYSQL_USER"] = os.environ.get("MYSQL_USER", "root")
+app.config["MYSQL_PASSWORD"] = os.environ.get("MYSQL_PASSWORD", "")
+app.config["MYSQL_DB"] = os.environ.get("MYSQL_DB", "food_express")
+
 mysql.init_app(app)
 
 
