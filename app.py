@@ -1,6 +1,7 @@
 import os
 from flask import Flask
 from flask_mysqldb import MySQL
+from flask import Flask, render_template
 
 mysql = MySQL()
 
