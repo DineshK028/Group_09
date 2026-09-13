@@ -1,6 +1,6 @@
-/*==========================
-COMMON
-===========================*/
+/* ==========================
+   COMMON
+========================== */
 
 * {
     margin: 0;
@@ -9,13 +9,21 @@ COMMON
     font-family: Arial, sans-serif;
 }
 
+html {
+    width: 100%;
+    overflow-x: hidden;
+}
+
 body {
     background: #f7f4e8;
+    width: 100%;
+    min-height: 100vh;
     overflow-x: hidden;
 }
 
 .page {
-    min-height: 82vh;
+    width: 100%;
+    min-height: calc(100vh - 115px);
     padding: 30px;
     display: flex;
     flex-direction: column;
@@ -24,12 +32,14 @@ body {
 
 footer {
     background: #11823b;
-    height: 45px;
+    min-height: 45px;
+    width: 100%;
     color: white;
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 100%;
+    padding: 10px;
+    text-align: center;
 }
 
 .success {
@@ -43,18 +53,20 @@ footer {
 }
 
 
-/*==========================
-GUEST HEADER
-===========================*/
+/* ==========================
+   GUEST HEADER
+========================== */
 
 .guest-header {
+    width: 100%;
     min-height: 70px;
     background: #11823b;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 30px;
+    padding: 12px 30px;
     color: white;
+    gap: 15px;
 }
 
 .guest-header h1 {
@@ -68,18 +80,20 @@ GUEST HEADER
 }
 
 
-/*==========================
-CUSTOMER HEADER
-===========================*/
+/* ==========================
+   CUSTOMER HEADER
+========================== */
 
 .customer-header {
+    width: 100%;
     min-height: 70px;
     background: #11823b;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 30px;
+    padding: 12px 30px;
     color: white;
+    gap: 15px;
 }
 
 .logo {
@@ -90,7 +104,9 @@ CUSTOMER HEADER
 .menu {
     display: flex;
     align-items: center;
+    justify-content: flex-end;
     gap: 12px;
+    flex-wrap: wrap;
 }
 
 .welcome {
@@ -99,6 +115,7 @@ CUSTOMER HEADER
     padding: 8px 18px;
     border-radius: 20px;
     font-weight: bold;
+    white-space: nowrap;
 }
 
 .base-btn {
@@ -109,6 +126,7 @@ CUSTOMER HEADER
     border-radius: 20px;
     transition: 0.3s;
     font-weight: bold;
+    white-space: nowrap;
 }
 
 .base-btn:hover {
@@ -121,10 +139,20 @@ CUSTOMER HEADER
     font-weight: bold;
 }
 
+.top-btn {
+    background: white;
+    color: black;
+    padding: 8px 20px;
+    border-radius: 20px;
+    text-decoration: none;
+    font-weight: bold;
+    white-space: nowrap;
+}
 
-/*==========================
-LOGIN PAGE
-===========================*/
+
+/* ==========================
+   LOGIN
+========================== */
 
 .login-container {
     width: 100%;
@@ -209,9 +237,9 @@ LOGIN PAGE
 }
 
 
-/*==========================
-REGISTER PAGE
-===========================*/
+/* ==========================
+   REGISTER
+========================== */
 
 .register-wrapper {
     width: 320px;
@@ -226,23 +254,17 @@ REGISTER PAGE
 }
 
 .register-form {
+    width: 100%;
     background: #fff;
     padding: 20px;
 }
 
-.form-group {
+.register-form .form-group {
     margin-bottom: 15px;
     text-align: left;
 }
 
-.form-group label {
-    display: block;
-    margin-bottom: 5px;
-    font-size: 14px;
-    font-weight: bold;
-}
-
-.form-input {
+.register-form .form-input {
     width: 100%;
     padding: 8px;
     border: 1px solid #ccc;
@@ -266,19 +288,10 @@ REGISTER PAGE
     background: #095518;
 }
 
-.top-btn {
-    background: white;
-    color: black;
-    padding: 8px 20px;
-    border-radius: 20px;
-    text-decoration: none;
-    font-weight: bold;
-}
 
-
-/*==========================
-FORGOT PASSWORD PAGE
-===========================*/
+/* ==========================
+   FORGOT PASSWORD
+========================== */
 
 .forgot-container {
     width: 430px;
@@ -294,6 +307,7 @@ FORGOT PASSWORD PAGE
 }
 
 .forgot-form {
+    width: 100%;
     background: #fff;
     padding: 25px;
     border-radius: 4px;
@@ -335,9 +349,9 @@ FORGOT PASSWORD PAGE
 }
 
 
-/*==========================
-CUSTOMER DASHBOARD
-===========================*/
+/* ==========================
+   CUSTOMER DASHBOARD
+========================== */
 
 .dashboard-container {
     width: 100%;
@@ -363,7 +377,8 @@ CUSTOMER DASHBOARD
     color: black;
     text-decoration: none;
     width: 180px;
-    height: 42px;
+    min-height: 42px;
+    padding: 8px 15px;
     border-radius: 25px;
     display: flex;
     justify-content: center;
@@ -378,12 +393,18 @@ CUSTOMER DASHBOARD
 }
 
 
-/*==========================
-PLACE ORDER / RESTAURANTS
-===========================*/
+/* ==========================
+   RESTAURANTS
+========================== */
+
+.page-title {
+    text-align: center;
+    margin-bottom: 15px;
+}
 
 .restaurant-card {
     width: 80%;
+    max-width: 1100px;
     margin: 5px auto;
     background-color: #fff;
     border-radius: 12px;
@@ -391,7 +412,7 @@ PLACE ORDER / RESTAURANTS
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 20px;
+    gap: 25px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, .12);
 }
 
@@ -403,6 +424,7 @@ PLACE ORDER / RESTAURANTS
     margin: 0;
     font-size: 18px;
     color: #222;
+    overflow-wrap: anywhere;
 }
 
 .restaurant-info p {
@@ -422,6 +444,7 @@ PLACE ORDER / RESTAURANTS
     font-weight: bold;
     transition: 0.3s;
     white-space: nowrap;
+    display: inline-block;
 }
 
 .black-btn:hover {
@@ -429,12 +452,13 @@ PLACE ORDER / RESTAURANTS
 }
 
 
-/*==========================
-MENU
-===========================*/
+/* ==========================
+   MENU
+========================== */
 
 .menu-card {
     width: 70%;
+    max-width: 1000px;
     margin: 7px auto;
     background: #fff;
     border-radius: 12px;
@@ -444,6 +468,10 @@ MENU
     align-items: center;
     gap: 20px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, .12);
+}
+
+.menu-card > div {
+    min-width: 0;
 }
 
 .menu-card h3 {
@@ -462,6 +490,7 @@ MENU
     display: flex;
     align-items: center;
     gap: 15px;
+    flex-shrink: 0;
 }
 
 .menu-card input[type="number"] {
@@ -493,9 +522,9 @@ MENU
 }
 
 
-/*==========================
-CART
-===========================*/
+/* ==========================
+   CART
+========================== */
 
 .cart-container {
     width: 75%;
@@ -547,6 +576,7 @@ CART
 }
 
 .cart-total {
+    width: 100%;
     text-align: right;
     margin-top: 25px;
 }
@@ -566,9 +596,9 @@ CART
 }
 
 
-/*==========================
-CHECKOUT
-===========================*/
+/* ==========================
+   CHECKOUT
+========================== */
 
 .checkout-container {
     width: 450px;
@@ -580,6 +610,7 @@ CHECKOUT
 .checkout-container h1 {
     font-size: 34px;
     margin-bottom: 10px;
+    overflow-wrap: anywhere;
 }
 
 .amount-info {
@@ -588,6 +619,7 @@ CHECKOUT
 }
 
 .checkout-form {
+    width: 100%;
     background: #fff;
     padding: 25px;
     border-radius: 6px;
@@ -634,9 +666,9 @@ CHECKOUT
 }
 
 
-/*==========================
-MY ORDERS
-===========================*/
+/* ==========================
+   MY ORDERS
+========================== */
 
 .orders-container {
     width: 80%;
@@ -652,6 +684,7 @@ MY ORDERS
 
 .orders-table {
     width: 100%;
+    min-width: 650px;
     background: white;
     border-radius: 6px;
     overflow: hidden;
@@ -679,11 +712,15 @@ MY ORDERS
 }
 
 
-/*==========================
-TABLET
-===========================*/
+/* ==========================
+   TABLET
+========================== */
 
 @media (max-width: 900px) {
+
+    .page {
+        padding: 25px 20px;
+    }
 
     .customer-header,
     .guest-header {
@@ -703,7 +740,7 @@ TABLET
     }
 
     .menu-card {
-        width: 85%;
+        width: 90%;
     }
 
     .cart-container,
@@ -713,13 +750,14 @@ TABLET
 }
 
 
-/*==========================
-MOBILE
-===========================*/
+/* ==========================
+   MOBILE
+========================== */
 
 @media (max-width: 600px) {
 
     .page {
+        min-height: calc(100vh - 130px);
         padding: 20px 12px 30px;
     }
 
@@ -731,6 +769,7 @@ MOBILE
         min-height: auto;
         padding: 15px 10px;
         flex-direction: column;
+        justify-content: center;
         gap: 12px;
         text-align: center;
     }
@@ -746,7 +785,6 @@ MOBILE
     .menu {
         width: 100%;
         justify-content: center;
-        flex-wrap: wrap;
         gap: 8px;
     }
 
@@ -761,10 +799,11 @@ MOBILE
     /* Login */
 
     .login-container {
-        margin-top: 30px;
+        margin-top: 25px;
     }
 
     .login-card {
+        width: 100%;
         padding: 25px 20px;
     }
 
@@ -792,6 +831,8 @@ MOBILE
     /* Register */
 
     .register-wrapper {
+        width: 100%;
+        max-width: 350px;
         margin: 25px auto;
     }
 
@@ -799,10 +840,16 @@ MOBILE
         font-size: 25px;
     }
 
+    .register-form {
+        padding: 18px 15px;
+    }
+
 
     /* Forgot Password */
 
     .forgot-container {
+        width: 100%;
+        max-width: 430px;
         margin: 25px auto;
     }
 
@@ -814,11 +861,12 @@ MOBILE
     /* Dashboard */
 
     .dashboard-container {
-        margin-top: 30px;
+        margin-top: 25px;
     }
 
     .dashboard-container h2 {
         margin-bottom: 25px;
+        font-size: 20px;
     }
 
     .dashboard-buttons {
@@ -853,8 +901,8 @@ MOBILE
 
     .black-btn {
         display: block;
-        text-align: center;
         width: 100%;
+        text-align: center;
         padding: 10px 15px;
     }
 
@@ -941,10 +989,13 @@ MOBILE
         margin-bottom: 20px;
     }
 
-    .orders-table {
-        display: block;
+    .orders-table-wrapper {
+        width: 100%;
         overflow-x: auto;
-        white-space: nowrap;
+    }
+
+    .orders-table {
+        min-width: 650px;
     }
 
     .orders-table th,
@@ -957,10 +1008,58 @@ MOBILE
     /* Footer */
 
     footer {
-        height: auto;
         min-height: 45px;
-        padding: 10px;
         font-size: 12px;
-        text-align: center;
+        padding: 10px;
+    }
+}
+
+
+/* ==========================
+   VERY SMALL PHONES
+========================== */
+
+@media (max-width: 380px) {
+
+    .logo {
+        font-size: 21px;
+    }
+
+    .guest-header h1 {
+        font-size: 19px;
+    }
+
+    .menu {
+        gap: 6px;
+    }
+
+    .welcome,
+    .base-btn,
+    .top-btn {
+        padding: 6px 10px;
+        font-size: 12px;
+    }
+
+    .login-card {
+        padding: 20px 15px;
+    }
+
+    .button-group {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .login-btn,
+    .reset-btn {
+        width: 100%;
+    }
+
+    .menu-card form {
+        flex-direction: column;
+    }
+
+    .menu-card input[type="number"],
+    .menu-card button {
+        width: 100%;
     }
 }
