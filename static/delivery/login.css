@@ -1,222 +1,209 @@
-
-
-*{
-
-margin:0;
-
-padding:0;
-
-box-sizing:border-box;
-
-font-family:Arial,Helvetica,sans-serif;
-
+* {
+    box-sizing: border-box;
 }
 
-body{
-
-background:#f5f3dc;
-
-height:100vh;
-
-display:flex;
-
-flex-direction:column;
-
+body {
+    background-color: rgb(230, 213, 191);
+    font-family: Arial, sans-serif;
+    margin: 0;
+    min-height: 100vh;
+    overflow-x: hidden;
 }
 
-header{
-
-height:55px;
-
-background:#0d5c4d;
-
-color:white;
-
-display:flex;
-
-justify-content:center;
-
-align-items:center;
-
-font-size:18px;
-
-font-weight:bold;
-
-position:relative;
-
+/* Header */
+header {
+    padding: 10px 15px;
+    text-align: center;
+    color: white;
+    background-color: #0b7d3b;
+    width: 100%;
+    position: relative;
 }
 
-.index{
-
-position:absolute;
-
-right:15px;
-
-top:10px;
-
-background:#d9d9d9;
-
-padding:8px 16px;
-
-border-radius:20px;
-
-text-decoration:none;
-
-color:black;
-
-font-size:13px;
-
-font-weight:bold;
-
+header h1 {
+    margin: 0;
+    font-size: 1.5rem;
 }
 
-main{
-
-flex:1;
-
-display:flex;
-
-justify-content:center;
-
-align-items:center;
-
+.index {
+    position: absolute;
+    right: 30px;
+    top: 15px;
+    text-decoration: none;
+    background: white;
+    color: black;
+    padding: 5px 12px;
+    border-radius: 5px;
 }
 
-.card{
-
-width:380px;
-
-background:white;
-
-padding:28px;
-
-border-radius:8px;
-
-box-shadow:0 2px 12px rgba(0,0,0,.15);
-
+/* Main */
+main {
+    min-height: calc(100vh - 120px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px 90px;
 }
 
-.card h2{
-
-text-align:center;
-
-margin-bottom:25px;
-
-font-size:18px;
-
-color:#333;
-
+/* Login Card */
+.card {
+    width: 350px;
+    max-width: 90%;
+    background-color: white;
+    padding: 30px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px gray;
 }
 
-label{
-
-display:block;
-
-font-weight:bold;
-
-margin-bottom:8px;
-
-margin-top:12px;
-
-font-size:14px;
-
+.card h2 {
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 25px;
 }
 
-input{
-
-width:100%;
-
-padding:10px;
-
-border:1px solid #ccc;
-
-border-radius:4px;
-
+.card label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
 }
 
-.buttons{
-
-margin-top:25px;
-
-text-align:center;
-
+.card input[type="email"],
+.card input[type="password"] {
+    width: 100%;
+    padding: 9px;
+    margin-bottom: 15px;
+    border: 1px solid #aaa;
+    border-radius: 3px;
+    font-size: 14px;
 }
 
-.login{
-
-background:#2d4156;
-
-color:white;
-
-border:none;
-
-padding:9px 22px;
-
-border-radius:4px;
-
-cursor:pointer;
-
-margin-right:10px;
-
+/* Buttons */
+.buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 10px;
 }
 
-.reset{
-
-background:#d9d9d9;
-
-border:none;
-
-padding:9px 22px;
-
-border-radius:4px;
-
-cursor:pointer;
-
+.buttons button {
+    width: 80px;
+    height: 35px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 15px;
 }
 
-.forgot{
-
-text-align:center;
-
-margin-top:18px;
-
+.login {
+    background-color: green;
+    color: white;
+    border: none;
 }
 
-.forgot a{
-
-text-decoration:none;
-
-font-weight:bold;
-
-color:#444;
-
+.reset {
+    background-color: white;
+    color: black;
+    border: 1px solid gray;
 }
 
-.message{
-
-text-align:center;
-
-color:red;
-
-margin-top:12px;
-
+.buttons button:hover {
+    opacity: 0.85;
 }
 
-footer{
-
-height:35px;
-
-background:#0d5c4d;
-
-color:white;
-
-display:flex;
-
-justify-content:center;
-
-align-items:center;
-
-font-size:13px;
-
+/* Forgot Password */
+.forgot {
+    text-align: center;
+    margin-top: 20px;
 }
 
+.forgot a {
+    color: #0b7d3b;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.forgot a:hover {
+    text-decoration: underline;
+}
+
+/* Messages */
+.message {
+    color: red;
+    text-align: center;
+    margin-top: 15px;
+}
+
+/* Footer */
+footer {
+    background-color: #0b7d3b;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    font-size: 14px;
+}
+
+
+/* Mobile */
+@media (max-width: 480px) {
+
+    header {
+        padding: 15px 10px 50px;
+    }
+
+    header h1 {
+        font-size: 1.2rem;
+    }
+
+    .index {
+        right: 50%;
+        transform: translateX(50%);
+        top: 48px;
+        padding: 5px 15px;
+    }
+
+    main {
+        padding: 35px 15px 80px;
+    }
+
+    .card {
+        width: 90%;
+        max-width: 350px;
+        padding: 25px 20px;
+    }
+
+    .card h2 {
+        font-size: 1.3rem;
+    }
+
+    .card input[type="email"],
+    .card input[type="password"] {
+        padding: 10px;
+    }
+
+    .buttons button {
+        width: 90px;
+        height: 38px;
+    }
+
+    footer {
+        font-size: 12px;
+        padding: 9px;
+    }
+}
+
+
+/* Tablet */
+@media (min-width: 481px) and (max-width: 768px) {
+
+    header h1 {
+        font-size: 1.4rem;
+    }
+
+    .card {
+        width: 380px;
+        max-width: 90%;
+    }
+}
