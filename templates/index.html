@@ -1,46 +1,120 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Infy Food Express</title>
+
     <style>
-        body {
-            background-color:  rgb(230, 213, 191);
-            font-family: Arial;
-            margin: 0;
+        * {
+            box-sizing: border-box;
         }
+
+        body {
+            background-color: rgb(230, 213, 191);
+            font-family: Arial, sans-serif;
+            margin: 0;
+            min-height: 100vh;
+        }
+
         .header {
-            padding: 15px; text-align: center; color: white; background-color: #0b7d3b;width: 100%; box-sizing: border-box;}
-        .header h1 {margin: 0; font-size: 1.5em;}
-        .container {display: flex;flex-direction: column;align-items: center;padding: 60px 20px;min-height: 60vh;    }
+            padding: 18px 15px;
+            text-align: center;
+            color: white;
+            background-color: #0b7d3b;
+            width: 100%;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 1.5rem;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 20px 100px;
+            min-height: calc(100vh - 120px);
+        }
 
         .role-btn {
-            display: block;width: 200px; text-align: center; text-decoration: none;background-color: #3fae66; color: black;
-            font-weight: bold;padding: 12px 0;margin-bottom: 18px;border-radius: 5px;  border: 1px solid #1e7e45;
-
+            display: block;
+            width: 200px;
+            max-width: 90%;
+            text-align: center;
+            text-decoration: none;
+            background-color: #3fae66;
+            color: black;
+            font-weight: bold;
+            padding: 12px 0;
+            margin-bottom: 18px;
+            border-radius: 5px;
+            border: 1px solid #1e7e45;
+            transition: background-color 0.2s, transform 0.2s;
         }
+
         .role-btn:hover {
             background-color: #2e8b57;
+            transform: scale(1.03);
         }
 
-        .footer{
+        .footer {
             background-color: #0b7d3b;
-            color:white;
+            color: white;
             text-align: center;
             padding: 10px;
+            width: 100%;
             position: fixed;
             bottom: 0;
-            width:100%;
+            left: 0;
+            font-size: 14px;
+        }
+
+        /* Mobile */
+        @media (max-width: 480px) {
+            .header {
+                padding: 15px 10px;
+            }
+
+            .header h1 {
+                font-size: 1.2rem;
+            }
+
+            .container {
+                padding: 40px 15px 80px;
+            }
+
+            .role-btn {
+                width: 85%;
+                max-width: 280px;
+                padding: 13px 0;
+                margin-bottom: 15px;
+            }
+
+            .footer {
+                font-size: 12px;
+                padding: 9px;
+            }
+        }
+
+        /* Tablet */
+        @media (min-width: 481px) and (max-width: 768px) {
+            .header h1 {
+                font-size: 1.4rem;
+            }
+
+            .role-btn {
+                width: 220px;
+            }
         }
     </style>
-
 </head>
 
 <body>
 
     <div class="header">
-
         <h1>Welcome to Infy Food Express</h1>
-
     </div>
 
     <div class="container">
@@ -52,16 +126,12 @@
         <a href="{{ url_for('customer_login') }}" class="role-btn">Customer</a>
 
         <a href="{{ url_for('delivery_login') }}" class="role-btn">Delivery</a>
-       
 
     </div>
 
     <div class="footer">
-
         Copyright &copy; 2026 Infy Food Express
-
     </div>
 
 </body>
-
 </html>
