@@ -1,83 +1,99 @@
 <!DOCTYPE html>
-
 <html>
 
 <head>
-<link rel="stylesheet" href="{{ url_for('static', filename='delivery/login.css') }}">
 
-<title>Delivery Person Login</title>
+    <meta charset="UTF-8">
 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='delivery/login.css') }}">
+
+    <title>Delivery Person Login</title>
 
 </head>
 
 <body>
 
-<header>
+    <header>
 
-Welcome to Infy Food Express
+        <h1>Welcome to Infy Food Express</h1>
 
-<a href="{{ url_for('index') }}" class="index">Index</a>
+        <a href="{{ url_for('index') }}" class="index">
+            Index
+        </a>
 
-</header>
+    </header>
 
-<main>
 
-<div class="card">
+    <main>
 
-<h2>Delivery Person Login</h2>
+        <div class="card">
 
-<form method="POST">
+            <h2>Delivery Person Login</h2>
 
-<label>Email</label>
+            <form method="POST">
 
-<input type="email" name="email" required>
+                <label>Email</label>
 
-<label>Password</label>
+                <input type="email" name="email" required>
 
-<input type="password" name="password" required>
 
-<div class="buttons">
+                <label>Password</label>
 
-<button class="login" type="submit">Login</button>
+                <input type="password" name="password" required>
 
-<button class="reset" type="reset">Reset</button>
 
-</div>
+                <div class="buttons">
 
-<div class="forgot">
+                    <button class="login" type="submit">
+                        Login
+                    </button>
 
-<a href="/delivery/forgot_password">Forgot Password</a>
+                    <button class="reset" type="reset">
+                        Reset
+                    </button>
 
-</div>
+                </div>
 
-{% with messages=get_flashed_messages() %}
 
-{% if messages %}
+                <div class="forgot">
 
-{% for message in messages %}
+                    <a href="/delivery/forgot_password">
+                        Forgot Password
+                    </a>
 
-<div class="message">{{message}}</div>
+                </div>
 
-{% endfor %}
 
-{% endif %}
+                {% with messages=get_flashed_messages() %}
 
-{% endwith %}
+                    {% if messages %}
 
-</form>
+                        {% for message in messages %}
 
-</div>
+                            <div class="message">
+                                {{ message }}
+                            </div>
 
-</main>
+                        {% endfor %}
 
-<footer>
+                    {% endif %}
 
-Copyright © 2026 Infy Food Express
+                {% endwith %}
 
-</footer>
+            </form>
+
+        </div>
+
+    </main>
+
+
+    <footer>
+        Copyright © 2026 Infy Food Express
+    </footer>
 
 </body>
 
 </html>
-
-
